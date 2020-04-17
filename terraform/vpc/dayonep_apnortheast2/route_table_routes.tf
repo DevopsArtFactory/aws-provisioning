@@ -13,16 +13,3 @@ resource "aws_route" "private_nat" {
   nat_gateway_id         = element(aws_nat_gateway.nat.*.id, count.index)
 }
 
-#resource "aws_route" "public_peering" {
-#  route_table_id            = aws_route_table.public.id
-#  destination_cidr_block    = "10.200.0.0/16"
-#  vpc_peering_connection_id = var.vpc_peer_connection_id_bered_apne2
-#}
-#
-#resource "aws_route" "private_peering" {
-#  count                     = length(var.availability_zones_without_b)
-#  route_table_id            = element(aws_route_table.private.*.id, count.index)
-#  destination_cidr_block    = "10.200.0.0/16"
-#  vpc_peering_connection_id = var.vpc_peer_connection_id_bered_apne2
-#}
-#
