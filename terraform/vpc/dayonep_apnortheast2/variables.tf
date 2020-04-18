@@ -24,8 +24,6 @@ variable "cidr_numeral_public" {
     "1" = "16"
     "2" = "32"
   }
-  #    "3" = "48"
-  #    "4" = "64"
 }
 
 variable "cidr_numeral_private" {
@@ -34,8 +32,6 @@ variable "cidr_numeral_private" {
     "1" = "96"
     "2" = "112"
   }
-  #    "3" = "128"
-  #    "4" = "144"
 }
 
 variable "cidr_numeral_private_db" {
@@ -44,29 +40,6 @@ variable "cidr_numeral_private_db" {
     "1" = "176"
     "2" = "192"
   }
-  #    "3" = "208"
-  #    "4" = "224"
-}
-
-variable "nat_image" {
-  default = {
-    ap-northeast-1 = "ami-7c0a6a7c"
-    eu-west-1      = "ami-1bd3e16c"
-    us-east-1      = "ami-2d530548"
-  }
-}
-
-variable "bastion_image" {
-  default = {
-    us-east-1      = "ami-d05e75b8"
-    eu-west-1      = "ami-85344af2"
-    ap-northeast-1 = "ami-936d9d93"
-  }
-}
-
-variable "datadog_monitor" {
-  description = "Flag of whether or not to allow datadog monitoring"
-  default     = "false"
 }
 
 variable "billing_tag" {
@@ -99,17 +72,17 @@ variable "subnet_no_private" {
   default     = "3"
 }
 
-variable "benx_internal_domain" {
-  description = "regional internal domain name"
-  default     = "benx.internal"
-}
-
 variable "env_suffix" {
   description = "env suffix"
   default     = ""
 }
 
-variable "vpc_peer_connection_id_bered_apne2" {
-  default = ""
+variable "vpc_peerings" {
+  description = "A list of maps containing key/value pairs that define vpc peering."
+  type        = list
+  default     = []
 }
 
+# peering ID with dayoned VPC
+variable "vpc_peer_connection_id_dayoned_apne2" {}
+variable "dayoned_destination_cidr_block" {}

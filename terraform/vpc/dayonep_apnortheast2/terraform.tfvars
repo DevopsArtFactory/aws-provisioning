@@ -23,3 +23,18 @@ shard_short_id = "dayone01p"
 
 # p means production
 env_suffix = "p"
+
+# VPC Peering Connection Variables
+vpc_peer_connection_id_dayoned_apne2 = "pcx-"
+dayoned_destination_cidr_block = "10.10.0.0/16"
+
+# Peering List
+vpc_peerings = [
+  {
+      peer_vpc_id                      = "vpc-"
+      peer_owner_id                    = ""
+      peer_region                      = ""
+      peer_vpc_name                    = "dayoned_apnortheast2"
+      vpc_cidr                         = "10.10.0.0/16"
+  }
+]

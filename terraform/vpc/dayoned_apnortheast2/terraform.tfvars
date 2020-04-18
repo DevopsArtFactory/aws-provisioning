@@ -21,3 +21,7 @@ shard_short_id = "dayone01d"
 
 # d means develop
 env_suffix = "d"
+
+# VPC Peering Connection Variables
+vpc_peer_connection_id_dayonep_apne2 = "pcx-"
+dayonep_destination_cidr_block = "10.20.0.0/16"
