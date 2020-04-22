@@ -108,7 +108,6 @@ resource "aws_subnet" "private" {
 
   tags = {
     Name               = "private${count.index}-${var.vpc_name}"
-    immutable_metadata = "{ \"purpose\": \"internal_${var.vpc_name}\", \"target\": null }"
     Network            = "Private"
   }
 }
@@ -145,7 +144,6 @@ resource "aws_subnet" "private_db" {
 
   tags = {
     Name               = "db-private${count.index}-${var.vpc_name}"
-    immutable_metadata = "{ \"purpose\": \"internal_db_${var.vpc_name}\", \"target\": null }"
     Network            = "Private"
   }
 }
