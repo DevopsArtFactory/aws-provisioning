@@ -56,9 +56,9 @@ variable "remote_state" {
     kms = {
       prod = {
         apne2 = {
-          region = ""
-          bucket = ""
-          key    = ""
+          region = "ap-northeast-2"
+          bucket = "dayone-prod-apnortheast2-tfstate"
+          key    = "dayone/terraform/kms/dayone-prod/prod_apnortheast2/terraform.tfstate"
         }
       }
     }
