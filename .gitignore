@@ -27,4 +27,4 @@ ansible/updater
 
 # ignore output dict
 .output
-.idea
+
