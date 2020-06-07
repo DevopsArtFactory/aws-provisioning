@@ -1,0 +1,52 @@
+version: 3
+automerge: true
+projects:
+
+  # Prod
+  - name: test
+    dir: terraform/test
+    workspace: default
+    terraform_version: 0.12.18
+    autoplan:
+      when_modified: [
+        "*.tf",
+        "terraform.tfvars",
+        "../../_modules/**.tf"
+      ]
+      enabled: true
+    apply_requirements: []
+    workflow: prod
+
+
+#### Workflows #####
+workflows:
+  # id
+  id:
+    plan:
+      steps:
+      - init:
+          extra_args: [
+            '-upgrade=true'
+          ]
+      - plan:
+    apply:
+      steps:
+      - apply
+
+  # Prod
+  prod:
+    plan:
+      steps:
+      - init:
+          extra_args: [
+            '-backend-config="role_arn=arn:aws:iam::<account-id>:role/assume-dayone-prod-admin"',
+            # We want the latest version of module. In most cases we should be pinning our version of a module.
+            '-upgrade=true'
+          ]
+      - plan:
+          extra_args: [
+            "-var 'assume_role_arn=arn:aws:iam::<account-id>:role/assume-dayone-prod-admin'"
+          ]
+    apply:
+      steps:
+      - apply
