@@ -12,6 +12,7 @@ resource "aws_s3_bucket" "tfstate" {
   }
 }
 
+/*
 # DynamoDB for terraform state lock
 resource "aws_dynamodb_table" "terraform_state_lock" {
   name           = "terraform-lock"
@@ -23,7 +24,7 @@ resource "aws_dynamodb_table" "terraform_state_lock" {
     type = "S"
   }
 }
-
+*/
 variable "account_id" {
- default = "dayone-id" # Please use the account alias for id
+ default = "art-id" # Please use the account alias for id
 }
