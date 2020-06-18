@@ -18,16 +18,16 @@ variable "remote_state" {
   default = {
     # VPC
     vpc = {
-      dayonedapne2 = {
+      artdapne2 = {
         region = "ap-northeast-2"
-        bucket = "dayone-prod-apnortheast2-tfstate"
-        key    = "dayone/terraform/vpc/dayoned_apnortheast2/terraform.tfstate"
+        bucket = "art-id-apnortheast2-tfstate"
+        key    = "art/terraform/vpc/artd_apnortheast2/terraform.tfstate"
       }
 
-      dayonepapne2 = {
+      artpapne2 = {
         region = "ap-northeast-2"
-        bucket = "dayone-prod-apnortheast2-tfstate"
-        key    = "dayone/terraform/vpc/dayonep_apnortheast2/terraform.tfstate"
+        bucket = "art-id-apnortheast2-tfstate"
+        key    = "art/terraform/vpc/artp_apnortheast2/terraform.tfstate"
       }
     }
 
@@ -46,8 +46,8 @@ variable "remote_state" {
     iam = {
       prod = {
         region = "ap-northeast-2"
-        bucket = "dayone-prod-apnortheast2-tfstate"
-        key    = "dayone/terraform/iam/dayone-prod/terraform.tfstate"
+        bucket = "art-id-apnortheast2-tfstate"
+        key    = "art/terraform/iam/art-prod/terraform.tfstate"
       }
     }
 
@@ -57,8 +57,8 @@ variable "remote_state" {
       prod = {
         apne2 = {
           region = "ap-northeast-2"
-          bucket = "dayone-prod-apnortheast2-tfstate"
-          key    = "dayone/terraform/kms/dayone-prod/prod_apnortheast2/terraform.tfstate"
+          bucket = "art-prod-apnortheast2-tfstate"
+          key    = "art/terraform/kms/art-prod/prod_apnortheast2/terraform.tfstate"
         }
       }
     }
