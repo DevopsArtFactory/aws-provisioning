@@ -4,6 +4,6 @@ data "terraform_remote_state" "vpc" {
   backend = "s3"
   
   # merge function is used to merge the key-value pairs from two different map
-  config =  merge(var.remote_state.vpc.dayonepapne2, {"role_arn"=var.assume_role_arn} )
+  config =  merge(var.remote_state.vpc.artapne2, {"role_arn"=var.assume_role_arn} )
 }
 

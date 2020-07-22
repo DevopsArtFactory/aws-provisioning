@@ -9,7 +9,7 @@ vpc_name = "artd_apnortheast2"
 billing_tag = "dev"
 
 # Availability Zone list
-availability_zones = ["ap-northeast-2a","ap-northeast-2c","ap-northeast-2b"]
+availability_zones = ["ap-northeast-2a","ap-northeast-2c"]
 
 # In Seoul Region, some resources are not supported in ap-northeast-2b
 availability_zones_without_b = ["ap-northeast-2a","ap-northeast-2c"]

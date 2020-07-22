@@ -1,5 +1,5 @@
 terraform {
-  required_version = "= 0.12.18"
+  required_version = "= 0.12.24"
 
   backend "s3" {
     bucket         = "art-id-apnortheast2-tfstate"  
