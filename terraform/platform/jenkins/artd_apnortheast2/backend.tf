@@ -2,8 +2,8 @@ terraform {
   required_version = "= 0.12.24"
 
   backend "s3" {
-    bucket         = "art-prod-apnortheast2-tfstate"
-    key            = "art/terraform/platform/jenkins/artp_apnortheast2/terraform.tfstate"
+    bucket         = "art-id-apnortheast2-tfstate"
+    key            = "art/terraform/platform/jenkins/artd_apnortheast2/terraform.tfstate"
     region         = "ap-northeast-2"
     encrypt        = true
     dynamodb_table = "terraform-lock"
