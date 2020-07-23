@@ -1,5 +1,5 @@
 terraform {
-  required_version = "= 0.12.18" # Terraform Version 
+  required_version = "= 0.12.24" # Terraform Version 
 
   backend "s3" {
     bucket         = "art-prod-apnortheast2-tfstate" # Set bucket name 
