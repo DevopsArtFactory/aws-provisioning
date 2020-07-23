@@ -8,7 +8,8 @@ resource "aws_iam_group_membership" "art_devops_black" {
 
   users = [
     aws_iam_user.jupiter_song.name,
-    aws_iam_user.gslee.name
+    aws_iam_user.gslee.name,
+    aws_iam_user.asbubam.name
   ]
 
   group = aws_iam_group.art_devops_black.name
@@ -40,12 +41,12 @@ EOF
 
 ########### DevOps Assume Policies ####################
 resource "aws_iam_group_policy_attachment" "art_devops_black" {
-  count      = length(var.userassume_policy_art_devops_black)
+  count      = length(var.assume_policy_art_devops_black)
   group      = aws_iam_group.art_devops_black.name
-  policy_arn = var.userassume_policy_art_devops_black[count.index]
+  policy_arn = var.assume_policy_art_devops_black[count.index]
 }
 
-variable "userassume_policy_art_devops_black" {
+variable "assume_policy_art_devops_black" {
   description = "IAM Policy to be attached to user"
   type        = list(string)
 

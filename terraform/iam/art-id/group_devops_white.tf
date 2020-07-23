@@ -28,12 +28,12 @@ resource "aws_iam_user" "readonly_art" {
 
 ########### DevOps Assume Policies ####################
 resource "aws_iam_group_policy_attachment" "art_devops_white" {
-  count      = length(var.userassume_policy_art_devops_white)
+  count      = length(var.assume_policy_art_devops_white)
   group      = aws_iam_group.art_devops_white.name
-  policy_arn = var.userassume_policy_art_devops_white[count.index]
+  policy_arn = var.assume_policy_art_devops_white[count.index]
 }
 
-variable "userassume_policy_art_devops_white" {
+variable "assume_policy_art_devops_white" {
   description = "IAM Policy to be attached to user"
   type        = list(string)
 
