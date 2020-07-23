@@ -27,7 +27,7 @@ module "jenkins" {
   efs_provisioned_throughput_in_mibps = 0
   
   #KMS Key for deployment
-  deployment_common_arn     = data.terraform_remote_state.kms.outputs.aws_kms_key_prod_apne2_deployment_common_arn
+  deployment_common_arn     = ""
 
   # Instance Count Variables
   instance_count_max     = 1
