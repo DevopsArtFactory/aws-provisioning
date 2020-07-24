@@ -8,7 +8,9 @@ variable "atlantis_user" {
 # Add all account ID to here 
 variable "account_id" {
   default = {
-    prod     = ""
+    id       = "816736805842"
+    prod     = "002202845208"
+
   }
 }
 
@@ -26,7 +28,7 @@ variable "remote_state" {
 
       artpapne2 = {
         region = "ap-northeast-2"
-        bucket = "art-id-apnortheast2-tfstate"
+        bucket = "art-prod-apnortheast2-tfstate"
         key    = "art/terraform/vpc/artp_apnortheast2/terraform.tfstate"
       }
     }
@@ -54,6 +56,15 @@ variable "remote_state" {
 
     # AWS KMS
     kms = {
+
+      id = {
+        apne2 = {
+          region = "ap-northeast-2"
+          bucket = "art-id-apnortheast2-tfstate"
+          key    = "art/terraform/kms/art-id/id_apnortheast2/terraform.tfstate"
+        }
+      }
+
       prod = {
         apne2 = {
           region = "ap-northeast-2"
@@ -61,6 +72,8 @@ variable "remote_state" {
           key    = "art/terraform/kms/art-prod/prod_apnortheast2/terraform.tfstate"
         }
       }
+
+
     }
   }
 }

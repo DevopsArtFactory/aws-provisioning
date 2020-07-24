@@ -1,8 +1,8 @@
 #
-# dayone-prod administrator
+# art-prod administrator
 #
-resource "aws_iam_role" "assume_dayone_prod_admin" {
-  name = "assume-dayone-prod-admin"
+resource "aws_iam_role" "assume_art_prod_admin" {
+  name = "assume-art-prod-admin"
   path = "/"
   max_session_duration = "43200"
   assume_role_policy = <<EOF
@@ -22,9 +22,9 @@ resource "aws_iam_role" "assume_dayone_prod_admin" {
 EOF
 }
 
-resource "aws_iam_role_policy" "assume_dayone_prod_admin" {
-  name = "assume-dayone-prod-admin-passrole"
-  role = aws_iam_role.assume_dayone_prod_admin.id
+resource "aws_iam_role_policy" "assume_art_prod_admin" {
+  name = "assume-art-prod-admin-passrole"
+  role = aws_iam_role.assume_art_prod_admin.id
 
   policy = <<EOF
 {
@@ -42,8 +42,8 @@ resource "aws_iam_role_policy" "assume_dayone_prod_admin" {
 EOF
 }
 
-resource "aws_iam_role_policy_attachment" "assume_dayone_prod_admin" {
-  role       = aws_iam_role.assume_dayone_prod_admin.id
+resource "aws_iam_role_policy_attachment" "assume_art_prod_admin" {
+  role       = aws_iam_role.assume_art_prod_admin.id
   policy_arn = "arn:aws:iam::aws:policy/AdministratorAccess"
 }
 
