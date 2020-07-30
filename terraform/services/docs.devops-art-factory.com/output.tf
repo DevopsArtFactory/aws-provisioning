@@ -1,0 +1,7 @@
+output "aws_cloudfront_distribution_docs_devops_art_factory_com_id" {
+  value = module.docs_devops_art_factory_com.aws_cloudfront_distribution_docs_devops_art_factory_com_id
+}
+
+output "aws_s3_bucket_docs_devops_art_factory_com_bucket" {
+  value = module.docs_devops_art_factory_com.aws_s3_bucket_docs_devops_art_factory_com_bucket
+}
