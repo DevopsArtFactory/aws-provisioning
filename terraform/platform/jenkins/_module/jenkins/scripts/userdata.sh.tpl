@@ -31,7 +31,9 @@ mkdir -p $JENKINS_HOME
 mount -t nfs4 -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2,noresvport ${efs_dns_name}:/ $JENKINS_HOME
 
 wget -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins-ci.org/redhat-stable/jenkins.repo
-rpm --import https://jenkins-ci.org/redhat/jenkins-ci.org.key
+rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key
+
+sleep 5
 
 yum install -y jenkins
 

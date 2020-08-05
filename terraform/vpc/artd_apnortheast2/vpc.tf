@@ -22,30 +22,30 @@ resource "aws_internet_gateway" "default" {
 
 
 ## NAT Gateway 
-#resource "aws_nat_gateway" "nat" {
-#  # Count means how many you want to create the same resource
-#  # This will be generated with array format
-#  # For example, if the number of availability zone is three, then nat[0], nat[1], nat[2] will be created.
-#  # If you want to create each resource with independent name, then you have to copy the same code and modify some code
-#  count = length(var.availability_zones)
-#
-#  # element is used for select the resource from the array 
-#  # Usage = element (array, index) => equals array[index]
-#  allocation_id = element(aws_eip.nat.*.id, count.index)
-#  
-#  #Subnet Setting
-#  # nat[0] will be attached to subnet[0]. Same to all index.
-#  subnet_id = element(aws_subnet.public.*.id, count.index)
-#
-#  lifecycle {
-#    create_before_destroy = true
-#  }
-#
-#  tags = {
-#    Name = "NAT-GW${count.index}-${var.vpc_name}"
-#  }
-#
-#}
+resource "aws_nat_gateway" "nat" {
+  # Count means how many you want to create the same resource
+  # This will be generated with array format
+  # For example, if the number of availability zone is three, then nat[0], nat[1], nat[2] will be created.
+  # If you want to create each resource with independent name, then you have to copy the same code and modify some code
+  count = length(var.availability_zones)
+
+  # element is used for select the resource from the array 
+  # Usage = element (array, index) => equals array[index]
+  allocation_id = element(aws_eip.nat.*.id, count.index)
+  
+  #Subnet Setting
+  # nat[0] will be attached to subnet[0]. Same to all index.
+  subnet_id = element(aws_subnet.public.*.id, count.index)
+
+  lifecycle {
+    create_before_destroy = true
+  }
+
+  tags = {
+    Name = "NAT-GW${count.index}-${var.vpc_name}"
+  }
+
+}
 
 # Elastic IP for NAT Gateway 
 resource "aws_eip" "nat" {
