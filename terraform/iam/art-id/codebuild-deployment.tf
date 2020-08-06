@@ -245,6 +245,16 @@ resource "aws_iam_role_policy" "codebuild_deployment_kms" {
 {
   "Statement": [
     {
+      "Sid": "AllowToDecryptKMSKey",
+      "Action": [
+        "kms:Decrypt"
+      ],
+      "Resource": [
+        "${data.terraform_remote_state.kms_apne2.outputs.aws_kms_key_id_apne2_deployment_common_arn}"
+      ],
+      "Effect": "Allow"
+    },
+    {
       "Sid": "AllowSsmParameterAccess",
       "Action": [
         "ssm:GetParameter",
@@ -255,6 +265,7 @@ resource "aws_iam_role_policy" "codebuild_deployment_kms" {
         "arn:aws:ssm:ap-northeast-2:${var.account_id}:parameter/CodeBuild/*"
       ]
     }
+
   ]
 }
 EOF
