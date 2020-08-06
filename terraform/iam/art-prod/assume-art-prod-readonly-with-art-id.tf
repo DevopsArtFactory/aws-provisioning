@@ -1,8 +1,8 @@
 #
-# dayone-prod readonly
+# art-prod readonly
 #
-resource "aws_iam_role" "assume_dayone_prod_readonly" {
-  name = "assume-dayone-prod-readonly"
+resource "aws_iam_role" "assume_art_prod_readonly" {
+  name = "assume-art-prod-readonly"
   path = "/"
 
   assume_role_policy = <<EOF
@@ -22,9 +22,9 @@ resource "aws_iam_role" "assume_dayone_prod_readonly" {
 EOF
 }
 
-resource "aws_iam_role_policy" "assume_dayone_prod_readonly" {
-  name = "assume-dayone-prod-readonly-passrole"
-  role = aws_iam_role.assume_dayone_prod_readonly.id
+resource "aws_iam_role_policy" "assume_art_prod_readonly" {
+  name = "assume-art-prod-readonly-passrole"
+  role = aws_iam_role.assume_art_prod_readonly.id
 
   policy = <<EOF
 {
@@ -42,8 +42,8 @@ resource "aws_iam_role_policy" "assume_dayone_prod_readonly" {
 EOF
 }
 
-resource "aws_iam_role_policy_attachment" "assume_dayone_prod_readonly" {
-  role       = aws_iam_role.assume_dayone_prod_readonly.id
+resource "aws_iam_role_policy_attachment" "assume_art_prod_readonly" {
+  role       = aws_iam_role.assume_art_prod_readonly.id
   policy_arn = "arn:aws:iam::aws:policy/ReadOnlyAccess"
 }
 
