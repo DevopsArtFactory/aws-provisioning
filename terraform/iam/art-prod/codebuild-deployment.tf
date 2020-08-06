@@ -288,6 +288,41 @@ resource "aws_iam_role_policy" "codebuild_deployment_cloudwatch" {
 EOF
 }
 
+resource "aws_iam_role_policy" "codebuild_deployment_dynamodb" {
+  name   = "codebuild-deployment-dynamodb"
+  role   = aws_iam_role.codebuild_deployment.id
+  policy = <<EOF
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "CreateDynamoDB",
+            "Effect": "Allow",
+            "Action": [
+                "dynamodb:CreateTable"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "ManageDynamoDB",
+            "Effect": "Allow",
+            "Action": [
+                "dynamodb:DescribeTable",
+                "dynamodb:PutItem",
+                "dynamodb:DeleteItem",
+                "dynamodb:GetItem",
+                "dynamodb:Scan",
+                "dynamodb:UpdateItem",
+                "dynamodb:UpdateTable"
+            ],
+            "Resource": "arn:aws:dynamodb:ap-northeast-2:*:table/*goployer-*"
+        }
+
+    ]
+}
+EOF
+}
+
 resource "aws_iam_instance_profile" "codebuild_deployment" {
   name = "codebuild-deployment-profile"
   role = aws_iam_role.codebuild_deployment.name

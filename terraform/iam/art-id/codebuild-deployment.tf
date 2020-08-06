@@ -245,6 +245,16 @@ resource "aws_iam_role_policy" "codebuild_deployment_kms" {
 {
   "Statement": [
     {
+      "Sid": "AllowToDecryptKMSKey",
+      "Action": [
+        "kms:Decrypt"
+      ],
+      "Resource": [
+        "${data.terraform_remote_state.kms_apne2.outputs.aws_kms_key_id_apne2_deployment_common_arn}"
+      ],
+      "Effect": "Allow"
+    },
+    {
       "Sid": "AllowSsmParameterAccess",
       "Action": [
         "ssm:GetParameter",
@@ -255,6 +265,7 @@ resource "aws_iam_role_policy" "codebuild_deployment_kms" {
         "arn:aws:ssm:ap-northeast-2:${var.account_id}:parameter/CodeBuild/*"
       ]
     }
+
   ]
 }
 EOF
@@ -284,6 +295,41 @@ resource "aws_iam_role_policy" "codebuild_deployment_cloudwatch" {
       "Effect": "Allow"
     }
   ]
+}
+EOF
+}
+
+resource "aws_iam_role_policy" "codebuild_deployment_dynamodb" {
+  name   = "codebuild-deployment-dynamodb"
+  role   = aws_iam_role.codebuild_deployment.id
+  policy = <<EOF
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "CreateDynamoDB",
+            "Effect": "Allow",
+            "Action": [
+                "dynamodb:CreateTable"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "ManageDynamoDB",
+            "Effect": "Allow",
+            "Action": [
+                "dynamodb:DescribeTable",
+                "dynamodb:PutItem",
+                "dynamodb:DeleteItem",
+                "dynamodb:GetItem",
+                "dynamodb:Scan",
+                "dynamodb:UpdateItem",
+                "dynamodb:UpdateTable"
+            ],
+            "Resource": "arn:aws:dynamodb:ap-northeast-2:*:table/*goployer-*"
+        }
+
+    ]
 }
 EOF
 }

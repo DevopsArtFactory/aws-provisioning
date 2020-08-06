@@ -10,7 +10,8 @@ resource "aws_iam_role" "deployment" {
       "Effect": "Allow",
       "Principal": {
         "AWS": [
-          "arn:aws:iam::${var.id_account_id}:role/jenkins"
+          "arn:aws:iam::${var.id_account_id}:role/jenkins",
+          "arn:aws:sts::816736805842:assumed-role/codebuild-deployment"
         ]
       },
 
