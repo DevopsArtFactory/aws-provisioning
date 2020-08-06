@@ -229,7 +229,7 @@ resource "aws_iam_role_policy" "codebuild_deployment_assume_deploy" {
         "sts:AssumeRole"
       ],
       "Resource": [
-        "arn:aws:iam::791017771911:role/deployment"
+        "arn:aws:iam::002202845208:role/deployment"
       ],
       "Effect": "Allow"
     }
