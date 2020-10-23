@@ -27,8 +27,8 @@ module "hello" {
   domain_name               = "hello"
 
   # Route53 variables
-  acm_external_ssl_certificate_arn  = var.r53_variables.prod.star_devopsartfactory_com_acm_arn_apnortheast2
-  route53_external_zone_id          = var.r53_variables.prod.devopsartfactory_com_zone_id
+  acm_external_ssl_certificate_arn  = var.r53_variables.id.star_devopsartfactory_com_acm_arn_apnortheast2
+  route53_external_zone_id          = var.r53_variables.id.devopsartfactory_com_zone_id
 
   # Resource LoadBalancer variables
   lb_variables                      = var.lb_variables
