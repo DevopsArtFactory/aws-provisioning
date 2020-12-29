@@ -46,6 +46,13 @@ variable "remote_state" {
 
     # AWS IAM
     iam = {
+
+      id = {
+        region = "ap-northeast-2"
+        bucket = "art-id-apnortheast2-tfstate"
+        key    = "art/terraform/iam/art-id/terraform.tfstate"
+      }
+
       prod = {
         region = "ap-northeast-2"
         bucket = "art-id-apnortheast2-tfstate"
