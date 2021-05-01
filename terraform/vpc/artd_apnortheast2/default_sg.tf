@@ -5,35 +5,16 @@ resource "aws_security_group" "default" {
   description = "default group for ${var.vpc_name}"
   vpc_id      = aws_vpc.default.id
 
-  #ingress {
-  #  from_port = 80       # You could set additional ingress port 
-  #  to_port   = 80
-  #  protocol  = "tcp"
+  ingress {
+    from_port = 80       # You could set additional ingress port 
+    to_port   = 80
+    protocol  = "tcp"
 
-  #  cidr_blocks = [
-  #    "10.0.0.0/8",
-  #  ]
-  #}
+    cidr_blocks = [
+      "10.0.0.0/8",
+    ]
+  }
     
-  # Instance should allow jmx exportor to access for monitoring
-  ingress {
-    from_port   = 10080
-    to_port     = 10080
-    protocol    = "tcp"
-    cidr_blocks = ["10.0.0.0/8"]
-    description = "inbound rule for jmx exporter"
-  }
-
-
-  # Instance should allow node exporter to access for monitoring
-  ingress {
-    from_port   = 9100
-    to_port     = 9100
-    protocol    = "tcp"
-    cidr_blocks = ["10.0.0.0/8"]
-    description = "inbound rule for node exporter"
-  }
-
   egress {
     from_port   = 80
     to_port     = 80

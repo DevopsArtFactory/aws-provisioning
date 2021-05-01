@@ -77,10 +77,9 @@ variable "env_suffix" {
   default     = ""
 }
 
-variable "vpc_peerings" {
+variable "vpc_peering_list" {
   description = "A list of maps containing key/value pairs that define vpc peering."
-  type        = list
-  default     = []
+  type        = map
 }
 
 # peering ID with artd VPC
