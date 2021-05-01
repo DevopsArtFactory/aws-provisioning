@@ -28,13 +28,12 @@ env_suffix = "p"
 vpc_peer_connection_id_artd_apne2 = "pcx-"
 artd_destination_cidr_block = "10.10.0.0/16"
 
-## Peering List
-#vpc_peerings = [
-#  {
-#      peer_vpc_id                      = "vpc-"
-#      peer_owner_id                    = ""
-#      peer_region                      = ""
-#      peer_vpc_name                    = "artd_apnortheast2"
-#      vpc_cidr                         = "10.10.0.0/16"
-#  }
-#]
+vpc_peering_list =  {
+  artd_apnortheast2 = {
+      peer_vpc_id                      = "vpc-"
+      peer_owner_id                    = ""
+      peer_region                      = "ap-northeast-2"
+      peer_vpc_name                    = "artd_apnortheast2"
+      vpc_cidr                         = "10.10.0.0/16"
+  }
+}
