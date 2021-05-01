@@ -66,15 +66,15 @@ resource "aws_cloudfront_distribution" "dayone_cdn_distribution" {
 
   }
 
-  enabled             = true
-  is_ipv6_enabled     = true
+  enabled         = true
+  is_ipv6_enabled = true
 
   comment             = "Cloudfront configuration for cdn-contents.dayonedevops.com"
   default_root_object = "index.html"
-    
+
   # Alias of cloudfront distribution
   aliases = [var.public_dayone_cdn_domain_name]
-  
+
   # Default Cache behavior 
   default_cache_behavior {
     allowed_methods  = ["GET", "HEAD"]
@@ -83,7 +83,7 @@ resource "aws_cloudfront_distribution" "dayone_cdn_distribution" {
     compress         = false
 
     forwarded_values {
-      query_string = true
+      query_string            = true
       query_string_cache_keys = ["d"]
 
       cookies {
@@ -113,17 +113,17 @@ resource "aws_cloudfront_distribution" "dayone_cdn_distribution" {
     viewer_protocol_policy = "redirect-to-https"
 
     # cache TTL Setting
-    min_ttl                = 0
-    default_ttl            = 1800
-    max_ttl                = 1800
+    min_ttl     = 0
+    default_ttl = 1800
+    max_ttl     = 1800
 
   }
-  
+
   # List of Custom Cache behavior
   # This behavior will be applied before default
   ordered_cache_behavior {
 
-    path_pattern           = "*.gif"
+    path_pattern = "*.gif"
 
     allowed_methods  = ["GET", "HEAD"]
     cached_methods   = ["GET", "HEAD"]
@@ -136,7 +136,7 @@ resource "aws_cloudfront_distribution" "dayone_cdn_distribution" {
     max_ttl                = 3600
 
     forwarded_values {
-      query_string = true
+      query_string            = true
       query_string_cache_keys = ["d"]
 
       cookies {
@@ -150,21 +150,21 @@ resource "aws_cloudfront_distribution" "dayone_cdn_distribution" {
       restriction_type = "none"
     }
   }
- 
+
   # Certification Settings 
   viewer_certificate {
     acm_certificate_arn      = var.r53_variables.prod.star_dayonedevops_com_acm_arn_useast1
     minimum_protocol_version = "TLSv1.1_2016"
     ssl_support_method       = "sni-only"
   }
- 
+
   # Cloudfront Logging Settings
 
   logging_config {
     include_cookies = false
     # Set bucket to applitcaion logs you created before
-    bucket          = "dayone-prod-apps-logs-dayonepapne2.s3.amazonaws.com"
-    prefix          = "cdn-contents.dayone.io_access_log/"
+    bucket = "dayone-prod-apps-logs-dayonepapne2.s3.amazonaws.com"
+    prefix = "cdn-contents.dayone.io_access_log/"
   }
 
   # You can set custom error response 
@@ -188,7 +188,7 @@ resource "aws_cloudfront_distribution" "dayone_cdn_distribution" {
     response_code         = 502
     response_page_path    = "/500.html"
   }
-  
+
   # Tags of cloudfront
   tags = {
     Name = "cdn-contents.dayonedevops.com"
@@ -197,9 +197,9 @@ resource "aws_cloudfront_distribution" "dayone_cdn_distribution" {
 
 # Route 53 Record for cloudfront
 resource "aws_route53_record" "dayone_cdn" {
-  zone_id         = var.r53_variables.prod.dayonedevops_com_zone_id
-  name            = var.public_dayone_cdn_domain_name
-  type            = "A"
+  zone_id = var.r53_variables.prod.dayonedevops_com_zone_id
+  name    = var.public_dayone_cdn_domain_name
+  type    = "A"
 
   alias {
     name                   = aws_cloudfront_distribution.dayone_cdn_distribution.domain_name

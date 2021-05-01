@@ -17,8 +17,8 @@ resource "aws_iam_group_membership" "art_devops_white" {
 
 ########### art DevOps users #####################
 
-resource "aws_iam_user" "readonly_art" {  
-  name = "readonly@art.com"       # Edit this value to the username you want to use 
+resource "aws_iam_user" "readonly_art" {
+  name = "readonly@art.com" # Edit this value to the username you want to use 
 }
 
 #######################################################

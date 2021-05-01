@@ -99,8 +99,8 @@ variable "route53_zone_name" {
 }
 
 variable "route53_zone_id" {
-  type        = string
-  default     = ""
+  type    = string
+  default = ""
 }
 
 variable "create_route53_record" {

@@ -8,19 +8,19 @@ resource "aws_security_group" "dayone_redis" {
   # even though port is same in order to distinguish the usage... 
   ingress {
     # Please do not use default port for security.
-    from_port = 6379
-    to_port   = 6379
-    protocol  = "tcp"
+    from_port       = 6379
+    to_port         = 6379
+    protocol        = "tcp"
     security_groups = [] # Please add security group IDs
-    description = "Internal redis service port from dayone application"
+    description     = "Internal redis service port from dayone application"
   }
- 
+
   ingress {
-    from_port = 6379
-    to_port   = 6379
-    protocol  = "tcp"
+    from_port       = 6379
+    to_port         = 6379
+    protocol        = "tcp"
     security_groups = [] # Please add security group IDs 
-    description = "Internal redis service port from xxx-vpc"
+    description     = "Internal redis service port from xxx-vpc"
   }
 
   egress {

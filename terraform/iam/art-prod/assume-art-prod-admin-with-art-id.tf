@@ -2,10 +2,10 @@
 # art-prod administrator
 #
 resource "aws_iam_role" "assume_art_prod_admin" {
-  name = "assume-art-prod-admin"
-  path = "/"
+  name                 = "assume-art-prod-admin"
+  path                 = "/"
   max_session_duration = "43200"
-  assume_role_policy = <<EOF
+  assume_role_policy   = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [

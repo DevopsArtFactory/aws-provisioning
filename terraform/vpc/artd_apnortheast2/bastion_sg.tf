@@ -6,12 +6,12 @@ resource "aws_security_group" "bastion" {
   vpc_id = aws_vpc.default.id
 
   ingress {
-    from_port = 22        # Specify the port you use for SSH
+    from_port = 22 # Specify the port you use for SSH
     to_port   = 22
     protocol  = "tcp"
 
     cidr_blocks = [
-      "180.71.174.152/32"  # Change here to your office or house ...
+      "180.71.174.152/32" # Change here to your office or house ...
     ]
   }
 

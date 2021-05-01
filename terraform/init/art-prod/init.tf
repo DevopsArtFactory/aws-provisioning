@@ -1,6 +1,6 @@
 provider "aws" {
-  region = "ap-northeast-2" # Please use the default region ID
-  version = "~> 2.49.0" # Please choose any version or delete this line if you want the latest version
+  region  = "ap-northeast-2" # Please use the default region ID
+  version = "~> 2.49.0"      # Please choose any version or delete this line if you want the latest version
 }
 
 # S3 bucket for backend
@@ -14,9 +14,9 @@ resource "aws_s3_bucket" "tfstate" {
 
 # DynamoDB for terraform state lock
 resource "aws_dynamodb_table" "terraform_state_lock" {
-  name           = "terraform-lock"
-  hash_key       = "LockID"
-  billing_mode   = "PAY_PER_REQUEST"
+  name         = "terraform-lock"
+  hash_key     = "LockID"
+  billing_mode = "PAY_PER_REQUEST"
 
   attribute {
     name = "LockID"
@@ -25,7 +25,7 @@ resource "aws_dynamodb_table" "terraform_state_lock" {
 }
 
 variable "account_id" {
- default = "art-prod" # Please use the account alias for id
+  default = "art-prod" # Please use the account alias for id
 }
 
 

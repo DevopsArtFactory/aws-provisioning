@@ -18,7 +18,7 @@ variable "private_subnets" {
 variable "public_subnets" {
   description = "A comma-delimited list of public subnets for the VPC"
   type        = list(string)
-  default     = [] 
+  default     = []
 }
 
 variable "aws_region" {
@@ -39,7 +39,7 @@ variable "vpc_name" {
 
 variable "availability_zone" {
   description = ""
-  default = "ap-northeast-2a"
+  default     = "ap-northeast-2a"
 }
 
 variable "route53_internal_domain" {
@@ -75,15 +75,15 @@ variable "home_sg" {
 }
 
 variable "domain_name" {
-    description = "Domain Name"
+  description = "Domain Name"
 }
 
 variable "service_port" {
-    description = "Service Port"
+  description = "Service Port"
 }
 
 variable "healthcheck_port" {
-    description = "Healthcheck Port"
+  description = "Healthcheck Port"
 }
 
 variable "newrelic_monitor" {
@@ -127,7 +127,7 @@ variable "github_hook_sg" {
 }
 
 variable "efs_throughput_mode" {
-  default     = "bursting"
+  default = "bursting"
 }
 
 variable "efs_provisioned_throughput_in_mibps" {

@@ -1,6 +1,6 @@
 provider "aws" {
-  region = "ap-northeast-2" # Please use the default region ID
-  version = "~> 2.49.0" # Please choose any version or delete this line if you want the latest version
+  region  = "ap-northeast-2" # Please use the default region ID
+  version = "~> 2.49.0"      # Please choose any version or delete this line if you want the latest version
 }
 
 # S3 bucket for backend
@@ -26,5 +26,5 @@ resource "aws_dynamodb_table" "terraform_state_lock" {
 }
 */
 variable "account_id" {
- default = "art-id" # Please use the account alias for id
+  default = "art-id" # Please use the account alias for id
 }

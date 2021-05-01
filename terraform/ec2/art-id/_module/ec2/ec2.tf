@@ -9,7 +9,7 @@ resource "aws_security_group" "ec2" {
     protocol  = "tcp"
 
     cidr_blocks = var.ext_lb_ingress_cidrs
-  
+
     description = "SSH port"
   }
 
@@ -54,9 +54,9 @@ resource "aws_instance" "public_ec2" {
   }
 
   tags = {
-    Name    = "${var.service_name}-${var.stack}"
-    app     = "${var.service_name}"
-    stack   = var.stack
+    Name  = "${var.service_name}-${var.stack}"
+    app   = "${var.service_name}"
+    stack = var.stack
   }
 
 }

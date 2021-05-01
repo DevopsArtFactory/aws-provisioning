@@ -8,8 +8,8 @@ variable "atlantis_user" {
 # Add all account ID to here 
 variable "account_id" {
   default = {
-    id       = "816736805842"
-    prod     = "002202845208"
+    id   = "816736805842"
+    prod = "002202845208"
 
   }
 }

@@ -45,12 +45,12 @@ resource "aws_security_group" "ec2" {
   # Service Port will be passed via variable.
   ingress {
     from_port = var.service_port
-    to_port   = var.service_port 
+    to_port   = var.service_port
     protocol  = "tcp"
- 
+
     # Allow external LB Only for ec2 instance
     security_groups = [
-        aws_security_group.external_lb.id,
+      aws_security_group.external_lb.id,
     ]
 
     description = "Port Open for ${var.service_name}"
@@ -66,7 +66,7 @@ resource "aws_security_group" "ec2" {
 
   tags = {
     Name  = "${var.service_name}-${var.vpc_name}-sg"
-    app   = var.service_name 
+    app   = var.service_name
     stack = var.vpc_name
   }
 }
@@ -99,7 +99,7 @@ resource "aws_lb_target_group" "external" {
   vpc_id               = var.target_vpc
   slow_start           = var.lb_variables.target_group_slow_start[var.shard_id]
   deregistration_delay = var.lb_variables.target_group_deregistration_delay[var.shard_id]
-  
+
   # Change the health check setting 
   health_check {
     interval            = 15
@@ -137,15 +137,15 @@ resource "aws_lb_listener" "external_80" {
   load_balancer_arn = aws_lb.external.arn
   port              = "80"
   protocol          = "HTTP"
-  
+
   # This is for redirect 80. 
   # This means that it will only allow HTTPS(443) traffic
   default_action {
     type = "redirect"
 
     redirect {
-      port        = "443"
-      protocol    = "HTTPS"
+      port     = "443"
+      protocol = "HTTPS"
       # 301 -> Permanant Movement
       status_code = "HTTP_301"
     }

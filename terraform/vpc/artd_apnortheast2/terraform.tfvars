@@ -1,4 +1,4 @@
-aws_region = "ap-northeast-2"
+aws_region   = "ap-northeast-2"
 cidr_numeral = "10"
 
 # Please change "art" to what you want to use
@@ -9,14 +9,14 @@ vpc_name = "artd_apnortheast2"
 billing_tag = "dev"
 
 # Availability Zone list
-availability_zones = ["ap-northeast-2a","ap-northeast-2c"]
+availability_zones = ["ap-northeast-2a", "ap-northeast-2c"]
 
 # In Seoul Region, some resources are not supported in ap-northeast-2b
-availability_zones_without_b = ["ap-northeast-2a","ap-northeast-2c"]
+availability_zones_without_b = ["ap-northeast-2a", "ap-northeast-2c"]
 
 # shard_id will be used later when creating other resources.
 # With shard_id, you could distinguish which environment the resource belongs to 
-shard_id = "artdapne2"
+shard_id       = "artdapne2"
 shard_short_id = "art01d"
 
 # d means develop
@@ -24,4 +24,4 @@ env_suffix = "d"
 
 # VPC Peering Connection Variables
 vpc_peer_connection_id_artp_apne2 = "pcx-"
-artp_destination_cidr_block = "10.20.0.0/16"
+artp_destination_cidr_block       = "10.20.0.0/16"

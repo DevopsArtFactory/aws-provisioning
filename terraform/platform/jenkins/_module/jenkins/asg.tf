@@ -9,7 +9,7 @@ resource "aws_launch_configuration" "launch_configuration" {
   associate_public_ip_address = false
 
   user_data = data.template_file.init.rendered
-  
+
   key_name             = var.ssh_key_name
   iam_instance_profile = aws_iam_instance_profile.instance_profile.name
 
@@ -22,7 +22,7 @@ resource "aws_launch_configuration" "launch_configuration" {
 # If you don't have NAT Gateway or NAT Instance, then you should use public_subnet for deployment
 # BUT, using private subnet is recommended!!
 resource "aws_autoscaling_group" "autoscaling_group" {
-  vpc_zone_identifier       = var.private_subnets
+  vpc_zone_identifier = var.private_subnets
   #vpc_zone_identifier       = var.public_subnets
   name                      = "${var.service_name}-master-${var.vpc_name}"
   max_size                  = var.instance_count_max
@@ -34,7 +34,7 @@ resource "aws_autoscaling_group" "autoscaling_group" {
   force_delete              = true
   launch_configuration      = aws_launch_configuration.launch_configuration.name
 
-  target_group_arns         = [aws_lb_target_group.external.arn]
+  target_group_arns = [aws_lb_target_group.external.arn]
 
   lifecycle {
     ignore_changes = [desired_capacity]
