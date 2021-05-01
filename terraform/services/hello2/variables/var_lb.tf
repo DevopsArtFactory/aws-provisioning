@@ -2,13 +2,13 @@ variable "lb_variables" {
   default = {
 
     target_group_slow_start = {
-      artdapne2   = 0
-      artpapne2   = 0
+      artdapne2 = 0
+      artpapne2 = 0
     }
 
     target_group_deregistration_delay = {
-      artdapne2    = 60
-      artpapne2    = 60
+      artdapne2 = 60
+      artpapne2 = 60
     }
 
     external_lb = {

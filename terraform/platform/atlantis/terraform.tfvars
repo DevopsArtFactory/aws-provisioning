@@ -1,11 +1,11 @@
 # VPC - use these parameters to create new VPC resources
 cidr = "192.168.0.0/16"
 
-azs = ["ap-northeast-2a","ap-northeast-2c"]
+azs = ["ap-northeast-2a", "ap-northeast-2c"]
 
-private_subnets = ["192.168.1.0/24","192.168.2.0/24"]
+private_subnets = ["192.168.1.0/24", "192.168.2.0/24"]
 
-public_subnets = ["192.168.11.0/24","192.168.12.0/24"]
+public_subnets = ["192.168.11.0/24", "192.168.12.0/24"]
 
 # VPC - use these parameters to use existing VPC resources
 # vpc_id = "vpc-1651acf1"
@@ -25,18 +25,18 @@ ecs_service_assign_public_ip = true
 
 # Atlantis
 atlantis_allowed_repo_names = []
-atlantis_repo_whitelist = []
+atlantis_repo_whitelist     = []
 
 # Specify one of the following block.
 # For Github
 atlantis_github_user = ""
 
 # For Gitlab
-atlantis_gitlab_user = ""
+atlantis_gitlab_user       = ""
 atlantis_gitlab_user_token = ""
 
 # For Bitbucket
-atlantis_bitbucket_user = ""
+atlantis_bitbucket_user       = ""
 atlantis_bitbucket_user_token = ""
 
 # For Bitbucket on prem (Stash)

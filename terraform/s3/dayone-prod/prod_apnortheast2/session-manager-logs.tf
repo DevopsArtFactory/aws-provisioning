@@ -8,7 +8,7 @@ resource "aws_s3_bucket" "session_manager_logs" {
     rule {
       # You can use aws/s3 or custom KMS
       apply_server_side_encryption_by_default {
-        sse_algorithm     = "AES256"
+        sse_algorithm = "AES256"
       }
     }
   }

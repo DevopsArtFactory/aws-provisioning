@@ -32,7 +32,7 @@ resource "aws_nat_gateway" "nat" {
   # element is used for select the resource from the array 
   # Usage = element (array, index) => equals array[index]
   allocation_id = element(aws_eip.nat.*.id, count.index)
-  
+
   #Subnet Setting
   # nat[0] will be attached to subnet[0]. Same to all index.
   subnet_id = element(aws_subnet.public.*.id, count.index)
@@ -66,8 +66,8 @@ resource "aws_subnet" "public" {
   count  = length(var.availability_zones_without_b)
   vpc_id = aws_vpc.default.id
 
-  cidr_block              = "10.${var.cidr_numeral}.${var.cidr_numeral_public[count.index]}.0/20"
-  availability_zone       = element(var.availability_zones_without_b, count.index)
+  cidr_block        = "10.${var.cidr_numeral}.${var.cidr_numeral_public[count.index]}.0/20"
+  availability_zone = element(var.availability_zones_without_b, count.index)
 
   # Public IP will be assigned automatically when the instance is launch in the public subnet
   map_public_ip_on_launch = true

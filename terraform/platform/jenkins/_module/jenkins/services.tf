@@ -4,9 +4,9 @@ resource "aws_security_group" "external_lb" {
   vpc_id      = var.target_vpc
 
   ingress {
-    from_port = 443
-    to_port   = 443
-    protocol  = "tcp"
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
     cidr_blocks = var.ext_lb_ingress_cidrs
   }
 

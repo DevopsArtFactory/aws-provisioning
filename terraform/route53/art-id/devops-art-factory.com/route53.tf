@@ -1,7 +1,7 @@
 # AWS Route53 Zone 
 resource "aws_route53_zone" "devopsartfactory_com" {
-  name = "devops-art-factory.com"
-  comment       = "HostedZone created by Route53 Registrar - Manged Terraform"
+  name    = "devops-art-factory.com"
+  comment = "HostedZone created by Route53 Registrar - Manged Terraform"
 }
 
 resource "aws_route53_record" "ns_prod_devops-art-factory_com" {

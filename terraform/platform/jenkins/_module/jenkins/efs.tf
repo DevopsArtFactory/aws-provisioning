@@ -25,10 +25,10 @@ resource "aws_efs_file_system" "file_system" {
   tags = {
     Name = "${var.service_name}-efs-${var.vpc_name}"
   }
-  
+
   #You can control this value through variable
   provisioned_throughput_in_mibps = var.efs_provisioned_throughput_in_mibps
-  
+
   #You can control this mode through variable
   throughput_mode = var.efs_throughput_mode
 
@@ -42,7 +42,7 @@ resource "aws_efs_mount_target" "mount_target" {
   file_system_id = aws_efs_file_system.file_system.id
 
   #subnet_id      = element(var.private_subnets, count.index)
-  subnet_id      = element(var.public_subnets, count.index)
+  subnet_id = element(var.public_subnets, count.index)
   security_groups = [
     aws_security_group.efs.id,
   ]

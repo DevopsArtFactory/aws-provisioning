@@ -9,12 +9,12 @@ resource "aws_s3_bucket" "apps_logs_bucket" {
     # You can add any tansition rule 
     transition {
       days          = 30
-      storage_class = "STANDARD_IA" 
+      storage_class = "STANDARD_IA"
     }
 
     transition {
       days          = 60
-      storage_class = "ONEZONE_IA" 
+      storage_class = "ONEZONE_IA"
     }
 
     transition {

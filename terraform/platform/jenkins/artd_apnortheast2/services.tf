@@ -16,18 +16,18 @@ module "jenkins" {
   route53_internal_zone_id = data.terraform_remote_state.vpc.outputs.route53_internal_zone_id
   billing_tag              = data.terraform_remote_state.vpc.outputs.billing_tag
 
-  newrelic_monitor      = "false"
+  newrelic_monitor = "false"
 
-  ssh_key_name                          = "art-id-master"
+  ssh_key_name = "art-id-master"
 
-  instance_ami            = var.jenkins_master_ami
-  tag_first_owner         = var.tag_first_owner
-  tag_second_owner        = var.tag_second_owner
-  tag_project             = var.tag_project
+  instance_ami                        = var.jenkins_master_ami
+  tag_first_owner                     = var.tag_first_owner
+  tag_second_owner                    = var.tag_second_owner
+  tag_project                         = var.tag_project
   efs_provisioned_throughput_in_mibps = 0
-  
+
   #KMS Key for deployment
-  deployment_common_arn     = data.terraform_remote_state.kms.outputs.aws_kms_key_id_apne2_deployment_common_arn
+  deployment_common_arn = data.terraform_remote_state.kms.outputs.aws_kms_key_id_apne2_deployment_common_arn
 
   # Instance Count Variables
   instance_count_max     = 1
@@ -35,20 +35,20 @@ module "jenkins" {
   instance_count_desired = 1
 
   # Route53 variables
-  acm_external_ssl_certificate_arn  = var.r53_variables.id.star_devopsartfactory_com_acm_arn_apnortheast2
-  route53_external_zone_id          = var.r53_variables.id.devopsartfactory_com_zone_id
-  domain_name                       = "jenkins"
+  acm_external_ssl_certificate_arn = var.r53_variables.id.star_devopsartfactory_com_acm_arn_apnortheast2
+  route53_external_zone_id         = var.r53_variables.id.devopsartfactory_com_zone_id
+  domain_name                      = "jenkins"
 
   # Resource LoadBalancer variables
-  lb_variables                      = var.lb_variables
+  lb_variables = var.lb_variables
 
   # Security Group variables
-  sg_variables                      = var.sg_variables  
+  sg_variables = var.sg_variables
 
   # Home Security Group via remote_state
-  home_sg                       = data.terraform_remote_state.vpc.outputs.aws_security_group_home_id
+  home_sg = data.terraform_remote_state.vpc.outputs.aws_security_group_home_id
   #github_hook_sg                = data.terraform_remote_state.vpc.outputs.aws_security_group_github_hook_id
-  github_hook_sg                = ""
+  github_hook_sg = ""
 
   # CIDR for external LB
   # Control allowed IP for external LB 

@@ -1,6 +1,6 @@
 provider "aws" {
-  region = "ap-northeast-2" # Please use the default region ID
-  version = "~> 2.49.0" # Please choose any version or delete this line if you want the latest version
+  region  = "ap-northeast-2" # Please use the default region ID
+  version = "~> 2.49.0"      # Please choose any version or delete this line if you want the latest version
 
   assume_role {
     role_arn     = var.assume_role_arn
@@ -18,7 +18,7 @@ resource "aws_s3_bucket" "tfstate" {
 }
 
 variable "account_id" {
- default = "dayone-test-test" # Please use the account alias for id
+  default = "dayone-test-test" # Please use the account alias for id
 }
 
 

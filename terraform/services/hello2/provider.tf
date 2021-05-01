@@ -1,5 +1,5 @@
 provider "aws" {
-  region = data.terraform_remote_state.vpc.outputs.aws_region
+  region  = data.terraform_remote_state.vpc.outputs.aws_region
   version = "~> 2.49.0"
 
   assume_role {

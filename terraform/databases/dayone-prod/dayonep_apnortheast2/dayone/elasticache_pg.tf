@@ -4,7 +4,7 @@ resource "aws_elasticache_parameter_group" "dayone_redis_cluster_pg" {
   description = "dayone Elasticache Redis Parameter Group"
 
   # Please use the right engine and version
-  family      = "redis5.0"
+  family = "redis5.0"
 
   # List of cluster parameters
   parameter {

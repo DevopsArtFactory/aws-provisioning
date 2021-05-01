@@ -2,25 +2,25 @@
 resource "aws_elasticache_replication_group" "dayone_redis_cluster" {
   replication_group_id          = "dayone-cl-${data.terraform_remote_state.vpc.outputs.shard_id}"
   replication_group_description = "dayone redis cluster replica group"
-  
+
   # Change the node type 
-  node_type                     = "cache.r5.large"
+  node_type = "cache.r5.large"
 
   # Change the port you want to use 
-  port                          = 6379
+  port = 6379
 
   # Change the engine version
-  engine_version                = "5.0.3"
+  engine_version = "5.0.3"
 
   # Specify the subnet group we created before
-  subnet_group_name             = "subnets-${data.terraform_remote_state.vpc.outputs.shard_id}"
+  subnet_group_name = "subnets-${data.terraform_remote_state.vpc.outputs.shard_id}"
 
   # Specify the security group for redis elastiscache
-  security_group_ids            = [aws_security_group.dayone_redis.id]
+  security_group_ids = [aws_security_group.dayone_redis.id]
 
   # Specify the parameter group for redis elastiscache
-  parameter_group_name          = aws_elasticache_parameter_group.dayone_redis_cluster_pg.name
-  automatic_failover_enabled    = true
+  parameter_group_name       = aws_elasticache_parameter_group.dayone_redis_cluster_pg.name
+  automatic_failover_enabled = true
 
 
   # Configuration for cluster mode

@@ -6,7 +6,7 @@ resource "aws_security_group" "default" {
   vpc_id      = aws_vpc.default.id
 
   ingress {
-    from_port = 80       # You could set additional ingress port 
+    from_port = 80 # You could set additional ingress port 
     to_port   = 80
     protocol  = "tcp"
 
@@ -14,7 +14,7 @@ resource "aws_security_group" "default" {
       "10.0.0.0/8",
     ]
   }
-    
+
   egress {
     from_port   = 80
     to_port     = 80
@@ -66,7 +66,7 @@ resource "aws_security_group" "home" {
     protocol  = "tcp"
 
     cidr_blocks = [
-       "180.71.174.152/32"  # Change here to your office or house ...
+      "180.71.174.152/32" # Change here to your office or house ...
     ]
   }
 
@@ -76,7 +76,7 @@ resource "aws_security_group" "home" {
     protocol  = "tcp"
 
     cidr_blocks = [
-       "180.71.174.152/32"  # Change here to your office or house ...
+      "180.71.174.152/32" # Change here to your office or house ...
     ]
   }
 

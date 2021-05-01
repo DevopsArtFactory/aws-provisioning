@@ -1,11 +1,11 @@
 # Aurora Parameter Group
 # This is for the database instance not the cluster.
 resource "aws_db_parameter_group" "dayone_aurora_pg" {
-  name   = "dayone-aurora-${data.terraform_remote_state.vpc.outputs.shard_id}-pg"
-  
+  name = "dayone-aurora-${data.terraform_remote_state.vpc.outputs.shard_id}-pg"
+
   # Please change this value to version you want to use 
   family = "aurora-mysql5.7"
-  
+
   # From this, you could override the default value of DB parameter
   parameter {
     # Enable Slow query logging
@@ -42,10 +42,10 @@ resource "aws_db_parameter_group" "dayone_aurora_pg" {
 # Aurora Cluster Parameter Group
 # This is for the cluster of instances not the instance
 resource "aws_rds_cluster_parameter_group" "dayone_aurora_cluster_pg" {
-  name        = "dayone-aurora-${data.terraform_remote_state.vpc.outputs.shard_id}-cluster-pg"
+  name = "dayone-aurora-${data.terraform_remote_state.vpc.outputs.shard_id}-cluster-pg"
 
   # Please change this value to version you want to use 
-  family      = "aurora-mysql5.7"
+  family = "aurora-mysql5.7"
 
   description = "dayone RDS cluster parameter group"
 
@@ -66,7 +66,7 @@ resource "aws_rds_cluster_parameter_group" "dayone_aurora_cluster_pg" {
     name  = "long_query_time"
     value = "1"
   }
-  
+
   parameter {
     # Set server collation
     name  = "collation_server"
@@ -119,7 +119,7 @@ resource "aws_rds_cluster_parameter_group" "dayone_aurora_cluster_pg" {
     name         = "performance_schema"
     value        = "0"
   }
-  
+
   parameter {
     apply_method = "pending-reboot"
     name         = "query_cache_type"
@@ -136,8 +136,8 @@ resource "aws_rds_cluster_parameter_group" "dayone_aurora_cluster_pg" {
   parameter {
     # Enabled audit logging
     apply_method = "immediate"
-    name = "server_audit_logging"
-    value = 1
+    name         = "server_audit_logging"
+    value        = 1
   }
 
 }
