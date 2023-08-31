@@ -12,6 +12,7 @@ locals {
     Network = "Private"
     "kubernetes.io/cluster/${local.eks_cluster_name}" : "shared"
     "kubernetes.io/role/internal-elb" : 1
+    "karpenter.sh/discovery" : "${local.eks_cluster_name}"
   }
 
   public_subnets_tags_flat = distinct(flatten([
