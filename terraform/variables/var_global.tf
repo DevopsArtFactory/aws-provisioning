@@ -15,6 +15,7 @@ variable "account_id" {
   default = {
     id   = "816736805842"
     prod = "002202845208"
+
   }
 }
 
@@ -22,6 +23,27 @@ variable "account_id" {
 # You can add any resource here, if you want to refer from others
 variable "remote_state" {
   default = {
+    # EKS
+    eks = {
+       id = {
+        lguapne2 = {
+          region = "ap-northeast-2"
+          bucket = "art-id-apnortheast2-tfstate"
+          key    = "art/terraform/eks/lgu_apnortheast2/lguapne2-tfja/terraform.tfstate"
+        }
+      }
+    }
+
+    databases = {
+      id = {
+        lguapne2 = {
+          region = "ap-northeast-2"
+          bucket = "art-id-apnortheast2-tfstate"
+          key    = "art/terraform/databases/art-id/lgu_apnortheast2/terraform.tfstate"
+        }
+      }
+    }
+
     # VPC
     vpc = {
       artdapne2 = {
@@ -89,14 +111,8 @@ variable "remote_state" {
           key    = "art/terraform/kms/art-prod/prod_apnortheast2/terraform.tfstate"
         }
       }
-    }
-    # AWS EKS
-    eks = {
-      lguapne2-tfja = {
-        region = "ap-northeast-2"
-        bucket = "art-id-apnortheast2-tfstate"
-        key    = "art/terraform/eks/lgu_apnortheast2/lguapne2-tfja/terraform.tfstate"
-      }
+
+
     }
   }
 }
