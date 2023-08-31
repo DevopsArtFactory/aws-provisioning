@@ -3,7 +3,7 @@ terraform {
 
   backend "s3" {
     bucket         = "art-id-apnortheast2-tfstate"
-    key            = "provisioning/terraform/vpc/lgu_apnortheast2/terraform.tfstate"
+    key            = "art/terraform/vpc/lgu_apnortheast2/terraform.tfstate"
     region         = "ap-northeast-2"
     encrypt        = true
     dynamodb_table = "terraform-lock"
