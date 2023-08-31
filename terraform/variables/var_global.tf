@@ -1,3 +1,8 @@
+variable "assume_role_arn" {
+  description = "The role to assume when accessing the AWS API."
+  default     = ""
+}
+
 # Atlantis user
 variable "atlantis_user" {
   description = "The username that will be triggering atlantis commands. This will be used to name the session when assuming a role. More information - https://github.com/runatlantis/atlantis#assume-role-session-names"
@@ -10,7 +15,6 @@ variable "account_id" {
   default = {
     id   = "816736805842"
     prod = "002202845208"
-
   }
 }
 
@@ -85,8 +89,14 @@ variable "remote_state" {
           key    = "art/terraform/kms/art-prod/prod_apnortheast2/terraform.tfstate"
         }
       }
-
-
+    }
+    # AWS EKS
+    eks = {
+      lguapne2-tfja = {
+        region = "ap-northeast-2"
+        bucket = "art-id-apnortheast2-tfstate"
+        key    = "art/terraform/eks/lgu_apnortheast2/lguapne2-tfja/terraform.tfstate"
+      }
     }
   }
 }
