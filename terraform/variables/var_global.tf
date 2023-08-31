@@ -31,6 +31,12 @@ variable "remote_state" {
         bucket = "art-prod-apnortheast2-tfstate"
         key    = "art/terraform/vpc/artp_apnortheast2/terraform.tfstate"
       }
+
+      lguapne2 = {
+        region = "ap-northeast-2"
+        bucket = "art-id-apnortheast2-tfstate"
+        key    = "art/terraform/vpc/lgu_apnortheast2/terraform.tfstate"
+      }
     }
 
 
