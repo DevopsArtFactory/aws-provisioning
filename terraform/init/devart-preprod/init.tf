@@ -33,5 +33,5 @@ resource "aws_dynamodb_table" "terraform_state_lock" {
 }
 
 variable "account_id" {
-  default = "art-id" # Please use the account alias for id
+  default = "devart-preprod" # Please use the account alias for id
 }
