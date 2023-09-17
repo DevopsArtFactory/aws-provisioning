@@ -21,7 +21,3 @@ shard_short_id = "art01d"
 
 # d means develop
 env_suffix = "d"
-
-# VPC Peering Connection Variables
-vpc_peer_connection_id_artp_apne2 = "pcx-"
-artp_destination_cidr_block       = "10.20.0.0/16"

@@ -77,11 +77,11 @@ variable "env_suffix" {
   default     = ""
 }
 
-variable "vpc_peering_list" {
-  description = "A list of maps containing key/value pairs that define vpc peering."
-  type        = map
+variable "peering_requests" {
+  type = list(object({
+    id         = string
+    vpc_name   = string
+    cidr_block = string
+  }))
+  description = "peering connection id for accepting the peering connection "
 }
-
-# peering ID with artd VPC
-variable "vpc_peer_connection_id_artd_apne2" {}
-variable "artd_destination_cidr_block" {}

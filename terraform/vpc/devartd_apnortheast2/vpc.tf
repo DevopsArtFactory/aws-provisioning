@@ -50,8 +50,8 @@ resource "aws_nat_gateway" "nat" {
 # Elastic IP for NAT Gateway 
 resource "aws_eip" "nat" {
   # Count value should be same with that of aws_nat_gateway because all nat will get elastic ip
-  count = length(var.availability_zones)
-  domain   = "vpc"
+  count  = length(var.availability_zones)
+  domain = "vpc"
 
   lifecycle {
     create_before_destroy = true
