@@ -11,7 +11,7 @@
 #
 ## Add vpc endpoint to route table of private subnet
 #resource "aws_vpc_endpoint_route_table_association" "s3_endpoint_routetable" {
-#  count           = length(var.availability_zones_without_b)
+#  count           = length(var.availability_zones)
 #  vpc_endpoint_id = aws_vpc_endpoint.s3_endpoint.id
 #  route_table_id  = aws_route_table.private[count.index].id
 #}
@@ -29,7 +29,7 @@
 #
 ## Add vpc endpoint to route table of private subnet
 #resource "aws_vpc_endpoint_route_table_association" "dynamodb_endpoint_routetable" {
-#  count           = length(var.availability_zones_without_b)
+#  count           = length(var.availability_zones)
 #  vpc_endpoint_id = aws_vpc_endpoint.dynamodb_endpoint.id
 #  route_table_id  = aws_route_table.private[count.index].id
 #}
@@ -83,7 +83,7 @@
 #}
 #
 #resource "aws_vpc_endpoint_subnet_association" "apigateway_endpoint" {
-#  count           = length(var.availability_zones_without_b)
+#  count           = length(var.availability_zones)
 #  vpc_endpoint_id = aws_vpc_endpoint.apigateway_endpoint.id
 #  subnet_id       = element(aws_subnet.private.*.id, count.index)
 #}
@@ -136,8 +136,7 @@
 #}
 #
 #resource "aws_vpc_endpoint_subnet_association" "secretsmanager_endpoint" {
-#  count           = length(var.availability_zones_without_b)
+#  count           = length(var.availability_zones)
 #  vpc_endpoint_id = aws_vpc_endpoint.secretsmanager_endpoint.id
 #  subnet_id = aws_subnet.private[count.index].id
 #}
-#

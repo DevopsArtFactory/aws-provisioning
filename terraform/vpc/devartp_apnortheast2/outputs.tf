@@ -97,10 +97,6 @@ output "aws_security_group_home_id" {
   value       = aws_security_group.home.id
 }
 
-output "aws_security_group_codebuild_default_id" {
-  value = aws_security_group.codebuild_default.id
-}
-
 # ETC
 output "env_suffix" {
   description = "Suffix of the environment"

@@ -86,3 +86,13 @@ variable "artp_destination_cidr_block" {
   default = ""
 }
 
+variable "vpc_peering_list" {
+  type = list(object({
+    peer_vpc_id   = string
+    peer_vpc_name = string
+    peer_region   = string
+    vpc_cidrs     = list(string)
+    peer_owner_id = string
+  }))
+  description = "A list of maps containing key/value pairs that define vpc peering."
+}

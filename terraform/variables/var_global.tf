@@ -25,7 +25,7 @@ variable "remote_state" {
   default = {
     # EKS
     eks = {
-       id = {
+      id = {
         lguapne2 = {
           region = "ap-northeast-2"
           bucket = "art-id-apnortheast2-tfstate"
