@@ -1,3 +1,4 @@
+/*
 resource "aws_vpc_peering_connection" "peering_connection" {
   for_each      = { for entry in var.vpc_peering_list : entry.peer_vpc_name => entry }
   peer_vpc_id   = each.value.peer_vpc_id
@@ -11,4 +12,4 @@ resource "aws_vpc_peering_connection" "peering_connection" {
     Side          = "Requester"
   }
 }
-
+*/

@@ -1,3 +1,4 @@
+/*
 # Gateway Type Endpoint ( S3, DynamoDB )
 ## S3 Endpoint
 resource "aws_vpc_endpoint" "s3_endpoint" {
@@ -140,3 +141,5 @@ resource "aws_vpc_endpoint_subnet_association" "secretsmanager_endpoint" {
   vpc_endpoint_id = aws_vpc_endpoint.secretsmanager_endpoint.id
   subnet_id       = aws_subnet.private[count.index].id
 }
+
+*/
