@@ -1,5 +1,4 @@
 /*
-
 locals {
   private_peering_route_list = flatten([
     for pair in setproduct(var.vpc_peering_list, aws_route_table.private.*.id) : [
@@ -18,5 +17,4 @@ resource "aws_route" "private_peering_with_request" {
   destination_cidr_block    = each.value.vpc_cidr
   vpc_peering_connection_id = aws_vpc_peering_connection.peering_connection[each.value.peer_vpc_name].id
 }
-
 */

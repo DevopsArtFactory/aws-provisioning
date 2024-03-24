@@ -23,12 +23,11 @@ shard_short_id = "devart01d"
 env_suffix = "d"
 
 # Peering List
-vpc_peering_list = [
+
+peering_requests = [
   {
-    peer_vpc_id   = "vpc-0acb7d87bcbd212f0"
-    peer_owner_id = "816736805842"
-    peer_region   = "ap-northeast-2"
-    peer_vpc_name = "devartp_apnortheast2"
-    vpc_cidrs     = ["10.11.0.0/16"]
-  }
+    "id"         = "pcx-0021adf8d3b926dbd"
+    "vpc_name"   = "devartd_apnortheast2"
+    "cidr_block" = "10.10.0.0/16"
+  },
 ]
