@@ -1,9 +1,9 @@
 # Use module for service
-module "hello2" {
-  source = "../_module/hello2"
+module "hello" {
+  source = "../_module/hello"
 
   # Name of service
-  service_name = "hello2"
+  service_name = "hello"
 
   # Port for service and healthcheck
   service_port     = 80
@@ -23,12 +23,12 @@ module "hello2" {
 
   # Domain Name 
   # This will be the prefix of record 
-  # e.g) hello2.devops-art-factory.com
-  domain_name = "hello2"
+  # e.g) hello.devops-art-factory.com
+  domain_name = "hello-stage"
 
   # Route53 variables
-  acm_external_ssl_certificate_arn = var.r53_variables.id.star_devopsartfactory_com_acm_arn_apnortheast2
-  route53_external_zone_id         = var.r53_variables.id.devopsartfactory_com_zone_id
+  acm_external_ssl_certificate_arn = var.r53_variables.id.star_devart_tv_acm_arn_apnortheast2
+  route53_external_zone_id         = var.r53_variables.id.devart_tv_zone_id
 
   # Resource LoadBalancer variables
   lb_variables = var.lb_variables

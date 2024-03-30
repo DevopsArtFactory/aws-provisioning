@@ -1,1 +1,0 @@
-../variables/var_sg.tf

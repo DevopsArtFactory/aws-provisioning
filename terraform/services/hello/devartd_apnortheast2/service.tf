@@ -24,7 +24,7 @@ module "hello" {
   # Domain Name 
   # This will be the prefix of record 
   # e.g) hello.devops-art-factory.com
-  domain_name = "hello"
+  domain_name = "hello-dev"
 
   # Route53 variables
   acm_external_ssl_certificate_arn = var.r53_variables.id.star_devart_tv_acm_arn_apnortheast2
