@@ -53,6 +53,12 @@ variable "remote_state" {
         key    = "devart/terraform/vpc/devartd_apnortheast2/terraform.tfstate"
       }
 
+      devartsapne2 = {
+        region = "ap-northeast-2"
+        bucket = "devart-preprod-apnortheast2-tfstate"
+        key    = "devart/terraform/vpc/devarts_apnortheast2/terraform.tfstate"
+      }
+
       artdapne2 = {
         region = "ap-northeast-2"
         bucket = "art-id-apnortheast2-tfstate"
