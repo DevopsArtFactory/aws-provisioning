@@ -1,10 +1,17 @@
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 5.17.0"
+    }
+  }
+}
+
 provider "aws" {
-  region  = data.terraform_remote_state.vpc.outputs.aws_region
-  version = "~> 2.49.0"
+  region = var.aws_region
 
   assume_role {
     role_arn     = var.assume_role_arn
     session_name = var.atlantis_user
   }
-
 }

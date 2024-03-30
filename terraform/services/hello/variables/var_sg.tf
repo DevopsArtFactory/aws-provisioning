@@ -3,12 +3,21 @@ variable "sg_variables" {
 
     ec2 = {
       tags = {
-        artdapne2 = {
-          Name    = "hello-artd_apnortheast2-ec2-sg"
+
+        devartdapne2 = {
+          Name    = "hello-devartd_apnortheast2-ec2-sg"
           app     = "hello"
           project = "hello"
           env     = "dev"
-          stack   = "artd_apnortheast2"
+          stack   = "devartd_apnortheast2"
+        },
+
+        artdapne2 = {
+          Name    = "hello-devartd_apnortheast2-ec2-sg"
+          app     = "hello"
+          project = "hello"
+          env     = "dev"
+          stack   = "devartd_apnortheast2"
         },
 
         artpapne2 = {
@@ -23,6 +32,15 @@ variable "sg_variables" {
 
     external_lb = {
       tags = {
+
+        devartdapne2 = {
+          Name    = "hello-artd_apnortheast2-external-lb-sg"
+          app     = "hello"
+          project = "hello"
+          env     = "dev"
+          stack   = "artd_apnortheast2"
+        },
+
         artdapne2 = {
           Name    = "hello-artd_apnortheast2-external-lb-sg"
           app     = "hello"
