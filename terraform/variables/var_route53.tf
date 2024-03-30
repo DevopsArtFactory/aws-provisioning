@@ -1,6 +1,8 @@
 variable "r53_variables" {
   default = {
     id = {
+      star_devart_tv_acm_arn_apnortheast2 = "arn:aws:acm:ap-northeast-2:816736805842:certificate/87a9d99f-8f13-4c3e-b2be-4aef201c0e68"
+      devart_tv_zone_id = "Z0090151N7K3Q97VU8VT"
       devopsartfactory_com_zone_id = "Z03407373NYH46ZMHFM7O"
 
       star_devopsartfactory_com_acm_arn_apnortheast2 = "arn:aws:acm:ap-northeast-2:816736805842:certificate/9d4a371f-80c5-4087-9cb5-b2636f554da7"
