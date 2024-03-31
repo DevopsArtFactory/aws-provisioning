@@ -10,7 +10,7 @@ resource "aws_security_group" "internal_lb" {
   ingress {
     from_port   = 80
     to_port     = 80
-    protocol    = "-1"
+    protocol    = "TCP"
     cidr_blocks = ["10.0.0.0/8"]
     description = "Internal outbound any traffic"
   }
