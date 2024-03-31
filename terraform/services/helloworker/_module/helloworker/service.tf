@@ -1,11 +1,19 @@
-############ Security Group For External LB
+############ Security Group For Internal LB
 resource "aws_security_group" "internal_lb" {
-  name        = "${var.service_name}-${var.vpc_name}-ext"
+  name        = "${var.service_name}-${var.vpc_name}-int"
   description = "${var.service_name} internal LB SG"
   vpc_id      = var.target_vpc
 
   # Only allow access from IPs or SGs you specifiy in ext_lb_ingress_cidrs variables
   # If you don't want to use HTTPS then remove this block
+
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "-1"
+    cidr_blocks = ["10.0.0.0/8"]
+    description = "Internal outbound any traffic"
+  }
 
   egress {
     from_port   = 0
