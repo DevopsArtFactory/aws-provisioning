@@ -45,4 +45,5 @@ module "helloworker" {
     "0.0.0.0/0"
   ]
 
+  key_name = "inflearn-default-key"
 }

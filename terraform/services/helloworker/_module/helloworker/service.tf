@@ -54,7 +54,7 @@ resource "aws_security_group" "ec2" {
   }
 }
 
-#################### External ALB
+#################### Internal ALB
 resource "aws_lb" "internal" {
   name     = "${var.service_name}-${var.shard_id}-ext"
   subnets  = var.private_subnets
@@ -74,7 +74,7 @@ resource "aws_lb" "internal" {
   tags = var.lb_variables.internal_lb.tags[var.shard_id]
 }
 
-#################### External LB Target Group 
+#################### Internal LB Target Group 
 resource "aws_lb_target_group" "internal" {
   name                 = "${var.service_name}-${var.shard_id}-ext"
   port                 = var.service_port
@@ -105,8 +105,6 @@ resource "aws_lb_listener" "internal_80" {
   port              = "80"
   protocol          = "HTTP"
 
-  # This is for redirect 80. 
-  # This means that it will only allow HTTPS(443) traffic
   default_action {
     target_group_arn = aws_lb_target_group.internal.arn
     type             = "forward"
@@ -131,3 +129,41 @@ resource "aws_route53_record" "internal_dns" {
   }
 }
 
+##### ASG
+
+resource "aws_launch_template" "lt" {
+  name_prefix   = "${var.service_name}-${var.vpc_name}-LT"
+  image_id      = var.image_id
+  instance_type = var.instance_type
+  key_name      = var.key_name
+
+  vpc_security_group_ids = [aws_security_group.ec2.id]
+
+  tag_specifications {
+    resource_type = "instance"
+    tags = {
+      Name = "${var.service_name}-${var.vpc_name}-LaunchTemplate"
+    }
+  }
+}
+
+resource "aws_autoscaling_group" "asg" {
+  launch_template {
+    id      = aws_launch_template.lt.id
+    version = "$Latest"
+
+  }
+
+  min_size         = var.min_size
+  max_size         = var.max_size
+  desired_capacity = var.desired_capacity
+  vpc_zone_identifier = var.private_subnets
+
+  target_group_arns = [aws_lb_target_group.internal.arn]
+
+  tag {
+    key                 = "Name"
+    value               = "${var.service_name}-${var.vpc_name}-asg"
+    propagate_at_launch = true
+  }
+}

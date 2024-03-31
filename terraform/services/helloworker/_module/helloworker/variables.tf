@@ -81,3 +81,39 @@ variable "service_port" {
 variable "healthcheck_port" {
   description = "Healthcheck Port"
 }
+
+variable "image_id" {
+  description = "AMI ID for instance"
+  type        = string
+  default     = "ami-0032724dd60a24c31"
+}
+
+variable "instance_type" {
+  description = "EC2 Instance type"
+  type        = string
+  default     = "t3.small"
+}
+
+variable "key_name" {
+  description = "EC2 key-pair"
+  type        = string
+}
+
+variable "min_size" {
+  description = "Auto Scaling min size"
+  type        = number
+  default     = 1
+}
+
+variable "max_size" {
+  description = "Auto Scaling max size"
+  type        = number
+  default     = 1
+}
+
+variable "desired_capacity" {
+  description = "Auto Scaling desired capacity"
+  type        = number
+  default     = 1
+}
+
