@@ -94,7 +94,7 @@ resource "aws_lb_target_group" "internal" {
   health_check {
     interval            = 15
     port                = var.healthcheck_port
-    path                = "/"
+    path                = "/index.html"
     timeout             = 3
     healthy_threshold   = 3
     unhealthy_threshold = 2

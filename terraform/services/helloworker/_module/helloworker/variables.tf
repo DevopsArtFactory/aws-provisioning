@@ -102,18 +102,18 @@ variable "key_name" {
 variable "min_size" {
   description = "Auto Scaling min size"
   type        = number
-  default     = 1
+  default     = 2
 }
 
 variable "max_size" {
   description = "Auto Scaling max size"
   type        = number
-  default     = 1
+  default     = 4
 }
 
 variable "desired_capacity" {
   description = "Auto Scaling desired capacity"
   type        = number
-  default     = 1
+  default     = 3
 }
 
