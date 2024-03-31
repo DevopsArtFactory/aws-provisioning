@@ -6,8 +6,8 @@ module "helloworker" {
   service_name = "helloworker"
 
   # Port for service and healthcheck
-  service_port     = 80
-  healthcheck_port = 80
+  service_port     = 8080
+  healthcheck_port = 8080
 
   # VPC Information via remote_state
   shard_id                 = data.terraform_remote_state.vpc.outputs.shard_id
