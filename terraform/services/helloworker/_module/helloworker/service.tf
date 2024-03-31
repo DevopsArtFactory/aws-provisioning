@@ -4,7 +4,6 @@ resource "aws_security_group" "internal_lb" {
   description = "${var.service_name} internal LB SG"
   vpc_id      = var.target_vpc
 
-  # Only allow access from IPs or SGs you specifiy in ext_lb_ingress_cidrs variables
   # If you don't want to use HTTPS then remove this block
 
   ingress {
@@ -64,7 +63,7 @@ resource "aws_security_group" "ec2" {
 
 #################### Internal ALB
 resource "aws_lb" "internal" {
-  name     = "${var.service_name}-${var.shard_id}-ext"
+  name     = "${var.service_name}-${var.shard_id}-int"
   subnets  = var.private_subnets
   internal = true
 
@@ -84,7 +83,7 @@ resource "aws_lb" "internal" {
 
 #################### Internal LB Target Group 
 resource "aws_lb_target_group" "internal" {
-  name                 = "${var.service_name}-${var.shard_id}-ext"
+  name                 = "${var.service_name}-${var.shard_id}-int"
   port                 = var.service_port
   protocol             = "HTTP"
   vpc_id               = var.target_vpc
