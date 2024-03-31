@@ -7,6 +7,17 @@ resource "aws_security_group" "internal_lb" {
   # Only allow access from IPs or SGs you specifiy in ext_lb_ingress_cidrs variables
   # If you don't want to use HTTPS then remove this block
 
+<<<<<<< Updated upstream
+=======
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "TCP"
+    cidr_blocks = ["10.0.0.0/8"]
+    description = "Internal outbound any traffic"
+  }
+
+>>>>>>> Stashed changes
   egress {
     from_port   = 0
     to_port     = 0
