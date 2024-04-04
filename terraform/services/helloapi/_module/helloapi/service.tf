@@ -35,6 +35,33 @@ resource "aws_security_group" "external_lb" {
   tags = var.sg_variables.external_lb.tags[var.shard_id]
 }
 
+resource "aws_security_group" "internal_lb" {
+  name        = "${var.service_name}-${var.vpc_name}-int"
+  description = "${var.service_name} internal LB SG"
+  vpc_id      = var.target_vpc
+
+  # Only allow access from IPs or SGs you specifiy in ext_lb_ingress_cidrs variables
+  # If you don't want to use HTTPS then remove this block
+
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["10.0.0.0/8"]
+    description = "External service http port"
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["10.0.0.0/8"]
+    description = "Internal outbound any traffic"
+  }
+
+  tags = var.sg_variables.internal_lb.tags[var.shard_id]
+}
+
 
 ################## Security Group for EC2
 resource "aws_security_group" "ec2" {
@@ -69,6 +96,56 @@ resource "aws_security_group" "ec2" {
     app   = var.service_name
     stack = var.vpc_name
   }
+}
+############## internal NLB
+resource "aws_lb" "internal" {
+  name               = "${var.service_name}-${var.shard_id}-nlb-int"
+  internal           = true
+  load_balancer_type = "network"
+  subnets            = var.private_subnets
+
+  security_groups = [
+    aws_security_group.internal_lb.id
+  ]
+
+  tags = var.lb_variables.external_lb.tags[var.shard_id]
+
+}
+
+
+resource "aws_lb_target_group" "internal" {
+  name                 = "${var.service_name}-${var.shard_id}-int"
+  port                 = var.service_port
+  protocol             = "TCP"
+  vpc_id               = var.target_vpc
+  slow_start           = var.lb_variables.target_group_slow_start[var.shard_id]
+  deregistration_delay = var.lb_variables.target_group_deregistration_delay[var.shard_id]
+
+  # Change the health check setting
+  health_check {
+    interval            = 15
+    port                = var.healthcheck_port
+    path                = "/"
+    timeout             = 3
+    healthy_threshold   = 3
+    unhealthy_threshold = 2
+    matcher             = "200"
+  }
+
+  tags = var.lb_variables.internal_lb_tg.tags[var.shard_id]
+
+}
+
+resource "aws_lb_listener" "internal_80" {
+  load_balancer_arn = aws_lb.internal.arn
+  port              = "80"
+  protocol          = "TCP"
+
+  default_action {
+    target_group_arn = aws_lb_target_group.internal.arn
+    type             = "forward"
+  }
+
 }
 
 #################### External ALB
