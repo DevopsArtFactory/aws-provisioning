@@ -4,6 +4,14 @@ variable "sg_variables" {
     ec2 = {
       tags = {
 
+        neopindapne2 = {
+          Name    = "hello-neopind_apnortheast2-ec2-sg"
+          app     = "hello"
+          project = "hello"
+          env     = "dev"
+          stack   = "neopind_apnortheast2"
+        },
+
         devartdapne2 = {
           Name    = "hello-devartd_apnortheast2-ec2-sg"
           app     = "hello"
@@ -40,6 +48,14 @@ variable "sg_variables" {
 
     external_lb = {
       tags = {
+
+        neopindapne2 = {
+          Name    = "hello-neopind_apnortheast2-external-lb-sg"
+          app     = "hello"
+          project = "hello"
+          env     = "dev"
+          stack   = "neopind_apnortheast2"
+        },
 
         devartdapne2 = {
           Name    = "hello-devartd_apnortheast2-external-lb-sg"

@@ -47,6 +47,12 @@ variable "remote_state" {
     # VPC
     vpc = {
 
+      neopindapne2 = {
+        region = "ap-northeast-2"
+        bucket = "devart-preprod-apnortheast2-tfstate"
+        key    = "devart/terraform/vpc/neopind_apnortheast2/terraform.tfstate"
+      }
+
       devartdapne2 = {
         region = "ap-northeast-2"
         bucket = "devart-preprod-apnortheast2-tfstate"
