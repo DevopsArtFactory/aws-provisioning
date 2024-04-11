@@ -2,6 +2,7 @@ variable "lb_variables" {
   default = {
 
     target_group_slow_start = {
+      neopindapne2 = 0
       devartdapne2 = 0
       devartsapne2 = 0
       artdapne2 = 0
@@ -9,6 +10,7 @@ variable "lb_variables" {
     }
 
     target_group_deregistration_delay = {
+      neopindapne2 = 0
       devartdapne2 = 0
       devartsapne2 = 0
       artdapne2 = 60
@@ -17,6 +19,14 @@ variable "lb_variables" {
 
     external_lb = {
       tags = {
+
+        neopindapne2 = {
+          Name    = "hello-neopind_apnortheast2-external-lb"
+          app     = "hello"
+          project = "hello"
+          env     = "dev"
+          stack   = "neopind_apnortheast2"
+        },
 
         devartdapne2 = {
           Name    = "hello-devartd_apnortheast2-external-lb"
@@ -54,6 +64,14 @@ variable "lb_variables" {
 
     external_lb_tg = {
       tags = {
+
+        neopindapne2 = {
+          Name    = "hello-neopind_apnortheast2-external-tg"
+          app     = "hello"
+          project = "hello"
+          env     = "dev"
+          stack   = "neopind_apnortheast2"
+        },
 
         devartdapne2 = {
           Name    = "hello-devartd_apnortheast2-external-tg"
