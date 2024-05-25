@@ -7,10 +7,11 @@ resource "aws_iam_group_membership" "art_devops_black" {
   name = aws_iam_group.art_devops_black.name
 
   users = [
+#    aws_iam_user.jupiter_devart_com.name,
     aws_iam_user.jupiter_song.name,
     aws_iam_user.gslee.name,
+    aws_iam_user.jwkang.name,
     aws_iam_user.asbubam.name,
-    aws_iam_user.jwkang.name
   ]
 
   group = aws_iam_group.art_devops_black.name
@@ -21,23 +22,21 @@ resource "aws_iam_group_policy" "art_devops_black" {
   name  = "art_devops_black"
   group = aws_iam_group.art_devops_black.id
 
-  policy = <<EOF
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Effect": "Allow",
-            "Action": [
-                "*"
-            ],
-            "Resource": [
-                "*"
-            ]
-        }
+  policy = data.aws_iam_policy_document.art_devops_black.json
+}
+
+data "aws_iam_policy_document" "art_devops_black" {
+  statement {
+    actions = [
+      "*"
     ]
+
+    resources = [
+      "*"
+    ]
+  }
 }
-EOF
-}
+
 ######################################################
 
 ########### DevOps Assume Policies ####################
@@ -63,17 +62,17 @@ variable "assume_policy_art_devops_black" {
 ############### MFA Manager ###########################
 resource "aws_iam_group_policy_attachment" "art_devops_black_rotatekeys" {
   group      = aws_iam_group.art_devops_black.name
-  policy_arn = aws_iam_policy.RotateKeys.arn
+  policy_arn = aws_iam_policy.rotate_keys.arn
 }
 
 resource "aws_iam_group_policy_attachment" "art_devops_black_selfmanagemfa" {
   group      = aws_iam_group.art_devops_black.name
-  policy_arn = aws_iam_policy.SelfManageMFA.arn
+  policy_arn = aws_iam_policy.self_managed_mfa.arn
 }
 
 resource "aws_iam_group_policy_attachment" "art_devops_black_forcemfa" {
   group      = aws_iam_group.art_devops_black.name
-  policy_arn = aws_iam_policy.ForceMFA.arn
+  policy_arn = aws_iam_policy.force_mfa.arn
 }
 
 #######################################################
