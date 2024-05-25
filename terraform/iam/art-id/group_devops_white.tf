@@ -7,24 +7,13 @@ resource "aws_iam_group_membership" "art_devops_white" {
   name = aws_iam_group.art_devops_white.name
 
   users = [
-    aws_iam_user.readonly_art.name,
+#    aws_iam_user.daniel_devart_com.name,
   ]
 
   group = aws_iam_group.art_devops_white.name
 }
 
 #######################################################
-
-########### art DevOps users #####################
-
-resource "aws_iam_user" "readonly_art" {
-  name = "readonly@art.com" # Edit this value to the username you want to use 
-}
-
-#######################################################
-
-############### DevOps Basic Policy ##################
-######################################################
 
 ########### DevOps Assume Policies ####################
 resource "aws_iam_group_policy_attachment" "art_devops_white" {
@@ -38,7 +27,7 @@ variable "assume_policy_art_devops_white" {
   type        = list(string)
 
   default = [
-    # Please change <account_id> to the real account id number of id account 
+    # Please change <account_id> to the real account id number of id account
     "arn:aws:iam::816736805842:policy/assume-art-prod-readonly-policy", # Add readonly policy to while group user
   ]
 }
@@ -49,17 +38,17 @@ variable "assume_policy_art_devops_white" {
 ############### MFA Manager ###########################
 resource "aws_iam_group_policy_attachment" "art_devops_white_rotatekeys" {
   group      = aws_iam_group.art_devops_white.name
-  policy_arn = aws_iam_policy.RotateKeys.arn
+  policy_arn = aws_iam_policy.rotate_keys.arn
 }
 
 resource "aws_iam_group_policy_attachment" "art_devops_white_selfmanagemfa" {
   group      = aws_iam_group.art_devops_white.name
-  policy_arn = aws_iam_policy.SelfManageMFA.arn
+  policy_arn = aws_iam_policy.self_managed_mfa.arn
 }
 
 resource "aws_iam_group_policy_attachment" "art_devops_white_forcemfa" {
   group      = aws_iam_group.art_devops_white.name
-  policy_arn = aws_iam_policy.ForceMFA.arn
+  policy_arn = aws_iam_policy.force_mfa.arn
 }
 
 #######################################################

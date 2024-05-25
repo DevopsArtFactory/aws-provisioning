@@ -2,44 +2,38 @@
 # art-prod readonly
 #
 resource "aws_iam_role" "assume_art_prod_readonly" {
-  name = "assume-art-prod-readonly"
-  path = "/"
+  name                 = "assume-art-prod-readonly"
+  path                 = "/"
+  max_session_duration = "43200"
+  assume_role_policy   = data.aws_iam_policy_document.assume_art_prod_readonly_assume_role.json
+}
 
-  assume_role_policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Sid": "",
-      "Effect": "Allow",
-      "Principal": {
-        "AWS": "arn:aws:iam::${var.id_account_id}:root"
-      },
-      "Action": "sts:AssumeRole"
+data "aws_iam_policy_document" "assume_art_prod_readonly_assume_role" {
+  statement {
+    actions = ["sts:AssumeRole"]
+    effect  = "Allow"
+
+    principals {
+      type        = "AWS"
+      identifiers = ["arn:aws:iam::${var.id_account_id}:root"]
     }
-  ]
-}
-EOF
+  }
 }
 
-resource "aws_iam_role_policy" "assume_art_prod_readonly" {
+resource "aws_iam_role_policy" "assume_art_prod_readonly_passrole" {
   name = "assume-art-prod-readonly-passrole"
   role = aws_iam_role.assume_art_prod_readonly.id
 
-  policy = <<EOF
-{
-  "Statement": [
-    {
-      "Sid": "AllowIAMPassRole",
-      "Action": [
-        "iam:PassRole"
-      ],
-      "Effect": "Allow",
-      "Resource": "*"
-    }
-  ]
+  policy = data.aws_iam_policy_document.assume_art_prod_readonly_pass_role.json
 }
-EOF
+
+data "aws_iam_policy_document" "assume_art_prod_readonly_pass_role" {
+  statement {
+    actions = ["iam:PassRole"]
+    effect  = "Allow"
+
+    resources = ["*"]
+  }
 }
 
 resource "aws_iam_role_policy_attachment" "assume_art_prod_readonly" {
