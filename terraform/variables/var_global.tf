@@ -82,7 +82,15 @@ variable "remote_state" {
         key    = "devart/terraform/vpc/eksd_apnortheast2/terraform.tfstate"
       }
     }
-
+    security_group = {
+      id = {
+        eksdapne2 = {
+          bucket = "devart-preprod-apnortheast2-tfstate"
+          key    = "devart/terraform/securitygroup/devart-id/eksd_apnortheast2/terraform.tfstate"
+          region = "ap-northeast-2"
+        }
+      }
+    }
 
     # WAF ACL
     waf_web_acl_global = {
