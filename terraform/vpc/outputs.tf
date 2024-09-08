@@ -62,6 +62,10 @@ output "db_private_subnets" {
   value = aws_subnet.private_db.*.id
 }
 
+output "aws_private_db_cidr_blocks" {
+  value = aws_subnet.private_db.*.cidr_block
+}
+
 # Misc
 output "route53_internal_zone_id" {
   value = aws_route53_zone.internal.zone_id
@@ -70,3 +74,4 @@ output "route53_internal_zone_id" {
 output "route53_internal_domain" {
   value = aws_route53_zone.internal.name
 }
+
