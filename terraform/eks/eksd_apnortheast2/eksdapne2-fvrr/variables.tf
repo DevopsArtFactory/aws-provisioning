@@ -31,6 +31,37 @@ variable "cluster_version" {
   }
 }
 
+variable "service_ipv4_cidr" {
+  type        = string
+  description = "kubernetes service ipv4 cidr"
+  default     = "172.30.0.0/16"
+}
+
+variable "release_version" {
+  type        = string
+  description = "Version of EKS AMI"
+}
+
+variable "coredns_version" {
+  type        = string
+  description = "Version of coredns addon"
+}
+
+variable "kube_proxy_version" {
+  type        = string
+  description = "Version of kube-proxy addon"
+}
+
+variable "vpc_cni_version" {
+  type        = string
+  description = "version of vpc_cni"
+}
+
+variable "ebs_csi_driver_version" {
+  type        = string
+  description = "version of ebs_csi_driver_version"
+}
+
 variable "fargate_enabled" {
   type        = bool
   description = "Whether or not to use AWS Fargate on Kubernetes"
@@ -49,6 +80,7 @@ variable "node_group_configurations" {
     spot_enabled        = bool
     disk_size           = number
     ami_type            = string
+    release_version     = optional(string)
     labels              = map(string)
     node_instance_types = list(string)
     node_min_size       = number
@@ -89,38 +121,52 @@ variable "tags" {
   default     = {}
 }
 
-variable "coredns_version" {
-  description = "version of coredns"
+variable "cluster_subnet_ids" {
+  type        = list(string)
+  description = "subnet ids that will be used for the kubernetes cluster"
+  default     = []
 }
 
-variable "kube_proxy_version" {
-  description = "version of kube_proxy"
+variable "cluster_policy_list" {
+  type = list(object({
+    type       = string
+    identifier = list(string)
+  }))
+  description = "eks cluster iam assume role policy statement list"
+  default     = []
 }
 
-variable "vpc_cni_version" {
-  description = "version of vpc_cni"
-}
-
-variable "aws_ebs_csi_driver_version" {
-  description = "version of aws_ebs_csi_driver_version"
-}
-
-variable "node_group_release_version" {
-  description = "version of Managed Node Group"
-}
-
-variable "enable_public_access" {
-  type        = bool
-  description = "whether or not public access to eks cluster"
-}
-
-variable "additional_ingress" {
+variable "additional_security_group_ingress" {
   description = "additional ingress rule"
   type = list(object({
-    from_port   = number
-    to_port     = number
-    protocol    = string
-    cidr_blocks = list(string)
+    from_port       = number
+    to_port         = number
+    protocol        = string
+    cidr_blocks     = optional(list(string))
+    security_groups = optional(list(string))
   }))
   default = []
+}
+
+variable "vpc_cni_configuration_values" {
+  description = "custom configuration values for vpc_cni addons with single JSON string"
+  default     = ""
+}
+
+variable "external_secrets_access_kms_arns" {
+  type        = list(string)
+  description = "ARNs for external access to KMS"
+  default     = ["*"]
+}
+
+variable "external_secrets_access_ssm_arns" {
+  type        = list(string)
+  description = "ARNs for external access to SSM"
+  default     = ["*"]
+}
+
+variable "external_secrets_access_secretsmanager_arns" {
+  type        = list(string)
+  description = "ARNs for external access to SecretsManager"
+  default     = ["*"]
 }

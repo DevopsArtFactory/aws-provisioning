@@ -61,22 +61,20 @@ resource "aws_sqs_queue" "aws_node_termination_handler_queue" {
 
 resource "aws_sqs_queue_policy" "aws_node_termination_handler_queue" {
   queue_url = aws_sqs_queue.aws_node_termination_handler_queue.id
-  policy    = <<-EOF
-{
-    "Version": "2012-10-17",
-    "Id": "MyQueuePolicy",
-    "Statement": [{
-        "Effect": "Allow",
-        "Principal": {
-            "Service": ["events.amazonaws.com", "sqs.amazonaws.com"]
-        },
-        "Action": "sqs:SendMessage",
-        "Resource": [
-            "${aws_sqs_queue.aws_node_termination_handler_queue.arn}"
-        ]
+  policy = jsonencode({
+    "Version" : "2012-10-17",
+    "Id" : "MyQueuePolicy",
+    "Statement" : [{
+      "Effect" : "Allow",
+      "Principal" : {
+        "Service" : ["events.amazonaws.com", "sqs.amazonaws.com"]
+      },
+      "Action" : "sqs:SendMessage",
+      "Resource" : [
+        "${aws_sqs_queue.aws_node_termination_handler_queue.arn}"
+      ]
     }]
-}
-EOF
+  })
 }
 
 # ASG from EKS
@@ -126,50 +124,46 @@ resource "aws_cloudwatch_event_target" "aws_node_termination_handler" {
 
 # OIDC ( IAM Role for "aws_node_termination_handler" Pod )
 resource "aws_iam_role" "aws_node_termination_handler" {
-  name               = "eks-${local.handler_name}"
-  assume_role_policy = <<POLICY
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Effect": "Allow",
-            "Principal": {
-                "Federated": "${local.openid_connect_provider_id}"
-            },
-            "Action": "sts:AssumeRoleWithWebIdentity",
-            "Condition": {
-                "StringEquals": {
-                    "${local.openid_connect_provider_url}:aud": "sts.amazonaws.com",
-                    "${local.openid_connect_provider_url}:sub": "system:serviceaccount:kube-system:aws-node-termination-handler"
-                }
-            }
+  name = "eks-${local.handler_name}"
+  assume_role_policy = jsonencode({
+    "Version" : "2012-10-17",
+    "Statement" : [
+      {
+        "Effect" : "Allow",
+        "Principal" : {
+          "Federated" : "${local.openid_connect_provider_id}"
+        },
+        "Action" : "sts:AssumeRoleWithWebIdentity",
+        "Condition" : {
+          "StringEquals" : {
+            "${local.openid_connect_provider_url}:aud" : "sts.amazonaws.com",
+            "${local.openid_connect_provider_url}:sub" : "system:serviceaccount:kube-system:aws-node-termination-handler"
+          }
         }
+      }
     ]
-}
-POLICY
+  })
 }
 
 resource "aws_iam_policy" "aws_node_termination_handler" {
-  name   = "eks-${local.handler_name}-policy"
-  policy = <<-EOF
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Effect": "Allow",
-            "Action": [
-                "autoscaling:CompleteLifecycleAction",
-                "autoscaling:DescribeAutoScalingInstances",
-                "autoscaling:DescribeTags",
-                "ec2:DescribeInstances",
-                "sqs:DeleteMessage",
-                "sqs:ReceiveMessage"
-            ],
-            "Resource": "*"
-        }
+  name = "eks-${local.handler_name}-policy"
+  policy = jsonencode({
+    "Version" : "2012-10-17",
+    "Statement" : [
+      {
+        "Effect" : "Allow",
+        "Action" : [
+          "autoscaling:CompleteLifecycleAction",
+          "autoscaling:DescribeAutoScalingInstances",
+          "autoscaling:DescribeTags",
+          "ec2:DescribeInstances",
+          "sqs:DeleteMessage",
+          "sqs:ReceiveMessage"
+        ],
+        "Resource" : "*"
+      }
     ]
-}
-EOF
+  })
 }
 
 resource "aws_iam_role_policy_attachment" "aws_node_termination_handler" {

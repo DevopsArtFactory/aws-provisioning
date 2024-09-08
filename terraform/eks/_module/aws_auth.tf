@@ -1,8 +1,8 @@
 locals {
-  auth_roles = {
+  auth_master_roles = {
     "system:masters" = var.aws_auth_master_roles_arn
   }
-  auth_users = {
+  auth_master_users = {
     "system:masters" = var.aws_auth_master_users_arn
   }
   auth_viewer_roles = {
@@ -11,6 +11,7 @@ locals {
   auth_viewer_users = {
     "viewers" = var.aws_auth_viewer_users_arn
   }
+  auth_additional_roles = var.auth_additional_roles_arn
 }
 
 data "aws_eks_cluster_auth" "eks_auth" {
@@ -40,7 +41,7 @@ resource "kubernetes_config_map" "aws_auth" {
           },
         ],
         flatten(
-          [for group, roles in local.auth_roles :
+          [for group, roles in local.auth_master_roles :
             [for role in roles :
               {
                 rolearn  = role
@@ -62,6 +63,16 @@ resource "kubernetes_config_map" "aws_auth" {
             ]
           ]
         ) : [],
+        length(local.auth_additional_roles) > 0 ?
+        flatten(
+          [for role in var.auth_additional_roles_arn :
+            {
+              rolearn  = role.role_arn
+              username = role.username
+              groups   = role.groups
+            }
+          ]
+        ) : [],
         var.fargate_enable ? [
           {
             rolearn  = aws_iam_role.eks_fargate[0].arn
@@ -78,9 +89,9 @@ resource "kubernetes_config_map" "aws_auth" {
 
     mapUsers = yamlencode(
       concat(
-        length(local.auth_users) > 0 ?
+        length(local.auth_master_users) > 0 ?
         flatten(
-          [for group, users in local.auth_users :
+          [for group, users in local.auth_master_users :
             [for user in users :
               {
                 userarn  = user
