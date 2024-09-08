@@ -226,9 +226,13 @@ resource "aws_route53_record" "jenkins_regional_ext_dns" {
   count   = var.enable_external ? 1 : 0
   zone_id = var.route53_external_zone_id
   name    = var.service_name
-  type    = "CNAME"
-  ttl     = 300
-  records = [aws_lb.external[0].dns_name]
+  type    = "A"
+
+  alias {
+    name                   = aws_lb.external[0].dns_name
+    zone_id                = aws_lb.external[0].zone_id
+    evaluate_target_health = true
+  }
 }
 
 
@@ -236,7 +240,11 @@ resource "aws_route53_record" "jenkins_regional_int_dns" {
   count   = var.enable_internal ? 1 : 0
   zone_id = var.route53_external_zone_id
   name    = var.service_name
-  type    = "CNAME"
-  ttl     = 300
-  records = [aws_lb.internal[0].dns_name]
+  type    = "A"
+
+  alias {
+    name                   = aws_lb.external[0].dns_name
+    zone_id                = aws_lb.external[0].zone_id
+    evaluate_target_health = true
+  }
 }

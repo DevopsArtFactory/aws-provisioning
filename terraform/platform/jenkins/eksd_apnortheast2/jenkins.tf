@@ -19,8 +19,8 @@ module "jenkins" {
   enable_external                     = true
   enable_internal                     = false
   # Project related variables
-  ingress_cidr_blocks = ["10.0.0.0/8"]
-  egress_cidr_blocks  = ["10.0.0.0/8"]
+  ingress_cidr_blocks = ["0.0.0.0/8"]
+  egress_cidr_blocks  = ["0.0.0.0/8"]
   project_tags        = var.tags
 }
 
