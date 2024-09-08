@@ -1,9 +1,13 @@
-variable "vpc_name" {
+variable "product" {
   description = "The name of the VPC"
 }
 
 variable "cidr_numeral" {
   description = "The VPC CIDR numeral (10.x.0.0/16)"
+}
+
+variable "aws_short_region" {
+  default = "apne2"
 }
 
 variable "aws_region" {
@@ -23,7 +27,9 @@ variable "cidr_numeral_public" {
     "0" = "0"
     "1" = "16"
     "2" = "32"
+    "3" = "48"
   }
+  #    "4" = "64"
 }
 
 variable "cidr_numeral_private" {
@@ -31,7 +37,9 @@ variable "cidr_numeral_private" {
     "0" = "80"
     "1" = "96"
     "2" = "112"
+    "3" = "128"
   }
+  #    "4" = "144"
 }
 
 variable "cidr_numeral_private_db" {
@@ -39,7 +47,9 @@ variable "cidr_numeral_private_db" {
     "0" = "160"
     "1" = "176"
     "2" = "192"
+    "3" = "208"
   }
+  #    "4" = "224"
 }
 
 variable "billing_tag" {
@@ -51,28 +61,30 @@ variable "availability_zones" {
   description = "A comma-delimited list of availability zones for the VPC."
 }
 
-
-variable "availability_zones_without_b" {
-  type        = list(string)
-  description = "A comma-delimited list of availability zones except for ap-northeast-2b"
-}
-
-variable "assume_role_arn" {
-  description = "The role to assume when accessing the AWS API."
-  default     = ""
-}
-
-variable "atlantis_user" {
-  description = "The username that will be triggering atlantis commands. This will be used to name the session when assuming a role. More information - https://github.com/runatlantis/atlantis#assume-role-session-names"
-  default     = "atlantis_user"
-}
-
-variable "subnet_no_private" {
-  description = "This value means the number of private subnets"
-  default     = "3"
+variable "internal_domain" {
+  description = "regional internal domain name"
+  default     = "devart.internal"
 }
 
 variable "env_suffix" {
   description = "env suffix"
   default     = ""
+}
+
+variable "peering_requests" {
+  type = list(object({
+    id         = string
+    vpc_name   = string
+    cidr_block = string
+  }))
+  description = "A list of peering requests for private subnets"
+}
+
+variable "db_peering_requests" {
+  type = list(object({
+    id         = string
+    vpc_name   = string
+    cidr_block = string
+  }))
+  description = "A list of peering requests for private db subnets"
 }
