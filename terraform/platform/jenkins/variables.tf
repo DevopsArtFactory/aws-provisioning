@@ -18,12 +18,15 @@ variable "tag_project" {
   description = ""
 }
 
-variable "assume_role_arn" {
-  description = "The role to assume when accessing the AWS API."
-  default     = ""
+variable "project" {
+  default = "sandbox"
 }
 
-variable "jenkins_master_ami" {
-  description = "base image for jenkins agent : Amzon Linux latest"
-  default     = "ami-0719c02bbf2654c9f"
+variable "tags" {
+  description = "A map of tags to add to all resources."
+  type        = map(string)
+  default = {
+    Project = "network"
+  }
 }
+
