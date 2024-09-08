@@ -45,11 +45,5 @@ resource "aws_iam_group_policy_attachment" "art_devops_white_selfmanagemfa" {
   group      = aws_iam_group.art_devops_white.name
   policy_arn = aws_iam_policy.self_managed_mfa.arn
 }
-
-resource "aws_iam_group_policy_attachment" "art_devops_white_forcemfa" {
-  group      = aws_iam_group.art_devops_white.name
-  policy_arn = aws_iam_policy.force_mfa.arn
-}
-
 #######################################################
 

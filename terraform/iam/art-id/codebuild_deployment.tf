@@ -135,7 +135,7 @@ resource "aws_iam_role_policy" "codebuild_deployment_operation" {
       "Action": [
         "ec2:CreateNetworkInterfacePermission"
       ],
-        "Resource": "arn:aws:ec2:ap-northeast-2:${var.account_id}:network-interface/*"
+        "Resource": "arn:aws:ec2:ap-northeast-2:${var.account_id.id}:network-interface/*"
     },
     {
       "Sid": "DeploymentIAMAccess",
@@ -262,7 +262,7 @@ resource "aws_iam_role_policy" "codebuild_deployment_kms" {
       ],
       "Effect": "Allow",
       "Resource": [
-        "arn:aws:ssm:ap-northeast-2:${var.account_id}:parameter/CodeBuild/*"
+        "arn:aws:ssm:ap-northeast-2:${var.account_id.id}:parameter/CodeBuild/*"
       ]
     }
 
@@ -285,12 +285,12 @@ resource "aws_iam_role_policy" "codebuild_deployment_cloudwatch" {
         "logs:PutLogEvents"
       ],
       "Resource": [
-        "arn:aws:logs:*:${var.account_id}:log-group:/aws/codebuild/*",
-        "arn:aws:logs:*:${var.account_id}:log-group:/aws/codebuild/*:*",
-        "arn:aws:logs:*:${var.account_id}:log-group:/*",
-        "arn:aws:logs:*:${var.account_id}:log-group:/*:*",
-        "arn:aws:logs:*:${var.account_id}:log-group:/*:*:*",
-        "arn:aws:logs:*:${var.account_id}:log-group:*:*:*/*"
+        "arn:aws:logs:*:${var.account_id.id}:log-group:/aws/codebuild/*",
+        "arn:aws:logs:*:${var.account_id.id}:log-group:/aws/codebuild/*:*",
+        "arn:aws:logs:*:${var.account_id.id}:log-group:/*",
+        "arn:aws:logs:*:${var.account_id.id}:log-group:/*:*",
+        "arn:aws:logs:*:${var.account_id.id}:log-group:/*:*:*",
+        "arn:aws:logs:*:${var.account_id.id}:log-group:*:*:*/*"
       ],
       "Effect": "Allow"
     }

@@ -12,6 +12,7 @@ resource "aws_iam_group_membership" "art_devops_black" {
     aws_iam_user.gslee.name,
     aws_iam_user.jwkang.name,
     aws_iam_user.asbubam.name,
+    aws_iam_user.zerojin0312.name,
   ]
 
   group = aws_iam_group.art_devops_black.name
@@ -69,11 +70,5 @@ resource "aws_iam_group_policy_attachment" "art_devops_black_selfmanagemfa" {
   group      = aws_iam_group.art_devops_black.name
   policy_arn = aws_iam_policy.self_managed_mfa.arn
 }
-
-resource "aws_iam_group_policy_attachment" "art_devops_black_forcemfa" {
-  group      = aws_iam_group.art_devops_black.name
-  policy_arn = aws_iam_policy.force_mfa.arn
-}
-
 #######################################################
 
