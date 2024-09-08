@@ -12,7 +12,7 @@ resource "aws_eks_node_group" "eks_node_group" {
   capacity_type   = each.value.spot_enabled ? "SPOT" : "ON_DEMAND"
   disk_size       = each.value.disk_size
   instance_types  = each.value.node_instance_types
-  release_version = each.value.release_version != null ? each.value.release_version : var.node_group_release_version
+  release_version = each.value.release_version != null ? each.value.release_version : var.release_version
 
   tags = merge(var.tags, tomap({
     "Name"                                      = "${var.cluster_name}-ng-${each.key}",
@@ -39,14 +39,6 @@ resource "aws_eks_node_group" "eks_node_group" {
     aws_iam_role_policy_attachment.eks_node_AmazonEC2ContainerRegistryReadOnly,
     kubernetes_config_map.aws_auth,
   ]
-
-  lifecycle {
-    ignore_changes = [
-      scaling_config[0].min_size,
-      scaling_config[0].desired_size,
-      scaling_config[0].max_size
-    ]
-  }
 }
 
 # IAM
@@ -54,21 +46,31 @@ resource "aws_iam_role" "eks_node_group" {
   name        = "eks-${var.cluster_name}-ng"
   description = "Allows EC2 instances to call AWS services on your behalf."
 
-  assume_role_policy = <<POLICY
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Principal": {
-        "Service": "ec2.amazonaws.com"
-      },
-      "Action": "sts:AssumeRole"
-    }
-  ]
+  assume_role_policy = jsonencode({
+    "Version" : "2012-10-17",
+    "Statement" : [
+      {
+        "Effect" : "Allow",
+        "Principal" : {
+          "Service" : "ec2.amazonaws.com"
+        },
+        "Action" : "sts:AssumeRole"
+      }
+    ]
+  })
 }
-POLICY
+
+resource "aws_security_group" "eks_node_group" {
+  name        = "eks-${var.cluster_name}-ng"
+  description = "Security group for node group"
+  vpc_id      = var.target_vpc
+
+  tags = merge(var.tags, tomap({
+    "Name"                                      = "eks-${var.cluster_name}-ng",
+    "kubernetes.io/cluster/${var.cluster_name}" = "owned"
+  }))
 }
+
 
 resource "aws_iam_role_policy_attachment" "eks_node_AmazonEKSWorkerNodePolicy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"
@@ -100,4 +102,3 @@ resource "aws_iam_instance_profile" "eks_node_group" {
   name = "eks-${var.cluster_name}-ng"
   role = aws_iam_role.eks_node_group.name
 }
-

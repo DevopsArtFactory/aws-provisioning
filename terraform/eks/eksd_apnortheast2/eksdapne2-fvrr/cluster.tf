@@ -1,0 +1,34 @@
+module "eks" {
+  source = "../../_module"
+
+  account_id                                  = local.account_id
+  cluster_name                                = local.cluster_name
+  cluster_version                             = local.cluster_version
+  service_ipv4_cidr                           = local.service_ipv4_cidr
+  release_version                             = local.release_version
+  coredns_version                             = local.coredns_version
+  kube_proxy_version                          = local.kube_proxy_version
+  vpc_cni_version                             = local.vpc_cni_version
+  ebs_csi_driver_version                      = local.ebs_csi_driver_version
+  fargate_enable                              = local.fargate_enabled
+  fargate_profile_name                        = local.fargate_profile_name
+  public_subnets                              = local.public_subnets
+  private_subnets                             = local.private_subnets
+  target_vpc                                  = local.target_vpc
+  aws_auth_master_users_arn                   = local.aws_auth_master_users_arn
+  aws_auth_master_roles_arn                   = local.aws_auth_master_roles_arn
+  aws_auth_viewer_users_arn                   = local.aws_auth_viewer_users_arn
+  aws_auth_viewer_roles_arn                   = local.aws_auth_viewer_roles_arn
+  assume_role_arn                             = local.assume_role_arn
+  node_group_configurations                   = local.node_group_configurations
+  tags                                        = local.tags
+  enable_public_access                        = true
+  cluster_subnet_ids                          = local.private_subnets
+  configuration_values                        = local.configuration_values
+  cluster_policy_list                         = local.cluster_policy_list
+  additional_security_group_ingress           = local.additional_security_group_ingress
+  vpc_cni_configuration_values                = local.vpc_cni_configuration_values
+  external_secrets_access_kms_arns            = local.external_secrets_access_kms_arns
+  external_secrets_access_ssm_arns            = local.external_secrets_access_ssm_arns
+  external_secrets_access_secretsmanager_arns = local.external_secrets_access_secretsmanager_arns
+}

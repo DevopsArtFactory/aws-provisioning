@@ -30,45 +30,41 @@ resource "aws_iam_role" "eks_fargate" {
   count = var.fargate_enable ? 1 : 0
   name  = "eks-${var.fargate_profile_name}"
 
-  assume_role_policy = <<POLICY
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Principal": {
-        "Service": [
-          "eks-fargate-pods.amazonaws.com"
-        ]
-      },
-      "Action": "sts:AssumeRole"
-    }
-  ]
-}
-POLICY
+  assume_role_policy = jsonencode({
+    "Version" : "2012-10-17",
+    "Statement" : [
+      {
+        "Effect" : "Allow",
+        "Principal" : {
+          "Service" : [
+            "eks-fargate-pods.amazonaws.com"
+          ]
+        },
+        "Action" : "sts:AssumeRole"
+      }
+    ]
+  })
 }
 
 resource "aws_iam_role_policy" "eks-fargate-logging-policy" {
   count = var.fargate_enable ? 1 : 0
   name  = "eks-${var.fargate_profile_name}"
 
-  role   = aws_iam_role.eks_fargate[0].id
-  policy = <<EOF
-{
-  "Statement": [
-        {
-            "Effect": "Allow",
-            "Action": [
-                "logs:CreateLogStream",
-                "logs:CreateLogGroup",
-                "logs:DescribeLogStreams",
-                "logs:PutLogEvents"
-            ],
-            "Resource": "*"
-        }
+  role = aws_iam_role.eks_fargate[0].id
+  policy = jsonencode({
+    "Statement" : [
+      {
+        "Effect" : "Allow",
+        "Action" : [
+          "logs:CreateLogStream",
+          "logs:CreateLogGroup",
+          "logs:DescribeLogStreams",
+          "logs:PutLogEvents"
+        ],
+        "Resource" : "*"
+      }
     ]
-}
-EOF
+  })
 }
 
 resource "aws_iam_role_policy_attachment" "eks_fargate_AmazonEKSFargatePodExecutionRolePolicy" {

@@ -76,10 +76,10 @@ variable "remote_state" {
         key    = "art/terraform/vpc/artp_apnortheast2/terraform.tfstate"
       }
 
-      lguapne2 = {
+      eksdapne2 = {
         region = "ap-northeast-2"
-        bucket = "art-id-apnortheast2-tfstate"
-        key    = "art/terraform/vpc/lgu_apnortheast2/terraform.tfstate"
+        bucket = "devart-preprod-apnortheast2-tfstate"
+        key    = "devart/terraform/vpc/eksd_apnortheast2/terraform.tfstate"
       }
     }
 

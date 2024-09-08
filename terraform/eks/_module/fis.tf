@@ -50,43 +50,39 @@ resource "aws_fis_experiment_template" "aws_node_termination_handler_fis" {
 }
 
 resource "aws_iam_role" "aws_node_termination_handler_fis" {
-  name               = "eks-${local.handler_name}-fis-role"
-  assume_role_policy = <<-EOF
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Effect": "Allow",
-            "Principal": {
-                "Service": [
-                  "fis.amazonaws.com"
-                ]
-            },
-            "Action": "sts:AssumeRole"
-        }
+  name = "eks-${local.handler_name}-fis-role"
+  assume_role_policy = jsonencode({
+    "Version" : "2012-10-17",
+    "Statement" : [
+      {
+        "Effect" : "Allow",
+        "Principal" : {
+          "Service" : [
+            "fis.amazonaws.com"
+          ]
+        },
+        "Action" : "sts:AssumeRole"
+      }
     ]
-}
-EOF
+  })
 }
 
 resource "aws_iam_policy" "aws_node_termination_handler_fis" {
   name        = "eks-${local.handler_name}-fis-policy"
   description = "For FIS with Note Termination Handler"
-  policy      = <<-EOF
-{
-  "Version" : "2012-10-17",
-  "Statement" : [
-    {
-      "Effect" : "Allow",
-      "Action" : [
-        "ec2:SendSpotInstanceInterruptions",
-        "ec2:TerminateInstances"
-      ],
-      "Resource" : "arn:aws:ec2:*:${var.account_id}:instance/*"
-    }
-  ]
-}
-EOF
+  policy = jsonencode({
+    "Version" : "2012-10-17",
+    "Statement" : [
+      {
+        "Effect" : "Allow",
+        "Action" : [
+          "ec2:SendSpotInstanceInterruptions",
+          "ec2:TerminateInstances"
+        ],
+        "Resource" : "arn:aws:ec2:*:${var.account_id}:instance/*"
+      }
+    ]
+  })
 }
 
 resource "aws_iam_role_policy_attachment" "aws_node_termination_handler_fis" {

@@ -12,7 +12,7 @@ resource "aws_eks_cluster" "eks_cluster" {
   }
 
   kubernetes_network_config {
-    service_ipv4_cidr = "172.30.0.0/16"
+    service_ipv4_cidr = var.service_ipv4_cidr
   }
   tags = merge(var.tags, tomap({
     "Name" = var.cluster_name,
@@ -38,13 +38,21 @@ resource "aws_security_group" "eks_cluster" {
     description = ""
   }
 
+  ingress {
+    from_port   = 443
+    to_port     = 443
+    protocol    = "TCP"
+    cidr_blocks = ["10.112.0.0/16"]
+  }
+
   dynamic "ingress" {
-    for_each = var.additional_ingress
+    for_each = var.additional_security_group_ingress
     content {
-      from_port   = ingress.value["from_port"]
-      to_port     = ingress.value["to_port"]
-      protocol    = ingress.value["protocol"]
-      cidr_blocks = ingress.value["cidr_blocks"]
+      from_port       = ingress.value["from_port"]
+      to_port         = ingress.value["to_port"]
+      protocol        = ingress.value["protocol"]
+      cidr_blocks     = ingress.value["cidr_blocks"]
+      security_groups = ingress.value["security_groups"]
     }
   }
 
