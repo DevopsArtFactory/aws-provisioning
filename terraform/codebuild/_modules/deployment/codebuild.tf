@@ -1,7 +1,7 @@
 resource "aws_codebuild_project" "deployment" {
   name          = "${var.service_name}-${var.shard_id}"
   description   = "To deploy service"
-  build_timeout = "30"
+  build_timeout = var.build_timeout
   service_role  = var.service_role
 
   artifacts {
@@ -12,20 +12,19 @@ resource "aws_codebuild_project" "deployment" {
     compute_type                = var.compute_type
     image                       = var.build_image
     privileged_mode             = var.privileged_mode
-    type                        = "LINUX_CONTAINER"
+    type                        = var.os_type
     image_pull_credentials_type = var.image_credentials_type
 
-    environment_variable {
-      name  = "SERVICE_NAME"
-      value = var.service_name
+    dynamic "environment_variable" {
+      for_each = local.codebuild_environment_variables
+      content {
+        name = environment_variable.value.name
+        value = environment_variable.value.value
+      }
     }
   }
 
   source {
-    auth {
-      type = "OAUTH"
-    }
-
     type            = "GITHUB"
     location        = var.github_repo
     git_clone_depth = 1
@@ -52,4 +51,3 @@ resource "aws_codebuild_project" "deployment" {
     "stack_name" = var.vpc_name
   }
 }
-
