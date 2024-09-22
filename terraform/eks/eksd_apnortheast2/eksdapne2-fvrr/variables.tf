@@ -52,6 +52,11 @@ variable "kube_proxy_version" {
   description = "Version of kube-proxy addon"
 }
 
+variable "pod_identity_agent_version" {
+  type        = string
+  description = "Version of pod identity agent addon"
+}
+
 variable "vpc_cni_version" {
   type        = string
   description = "version of vpc_cni"
@@ -62,6 +67,11 @@ variable "ebs_csi_driver_version" {
   description = "version of ebs_csi_driver_version"
 }
 
+variable "enable_public_access" {
+  type        = bool
+  description = "Whether or not to Access Kubernetes From Public"
+  default     = false
+}
 variable "fargate_enabled" {
   type        = bool
   description = "Whether or not to use AWS Fargate on Kubernetes"

@@ -11,11 +11,12 @@ locals {
   kube_proxy_version     = var.kube_proxy_version
   vpc_cni_version        = var.vpc_cni_version
   ebs_csi_driver_version = var.ebs_csi_driver_version
+  pod_identity_agent_version = var.pod_identity_agent_version
   public_subnets         = data.terraform_remote_state.vpc.outputs.public_subnets
   private_subnets        = data.terraform_remote_state.vpc.outputs.private_subnets
   cluster_subnet_ids     = data.terraform_remote_state.vpc.outputs.private_subnets
   target_vpc             = data.terraform_remote_state.vpc.outputs.vpc_id
-
+  enable_public_access   = var.enable_public_access
   # additional security group
   additional_security_group_ingress = var.additional_security_group_ingress
 
