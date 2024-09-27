@@ -81,12 +81,6 @@ variable "remote_state" {
         bucket = "devart-preprod-apnortheast2-tfstate"
         key    = "devart/terraform/vpc/eksd_apnortheast2/terraform.tfstate"
       }
-      eksduse1 = {
-        region = "ap-northeast-2"
-        bucket = "devart-preprod-apnortheast2-tfstate"
-        key    = "devart/terraform/vpc/eksd_useast1/terraform.tfstate"
-      }
-
     }
     security_group = {
       id = {
