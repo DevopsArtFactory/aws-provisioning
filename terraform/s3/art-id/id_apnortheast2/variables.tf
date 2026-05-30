@@ -24,3 +24,13 @@ variable "atlantis_user" {
 variable "public_dayone_cdn_domain_name" {
   description = "dayone cdn domain."
 }
+
+variable "teamjupiter_download_allowed_origins" {
+  description = "Origins allowed to read private Team Jupiter download objects through presigned S3 URLs."
+  type        = list(string)
+  default = [
+    "https://teamjupiter.ai",
+    "https://www.teamjupiter.ai",
+    "https://teamjupiter-ai.vercel.app"
+  ]
+}

@@ -7,7 +7,7 @@ resource "aws_iam_group_membership" "art_devops_white" {
   name = aws_iam_group.art_devops_white.name
 
   users = [
-#    aws_iam_user.daniel_devart_com.name,
+    #    aws_iam_user.daniel_devart_com.name,
   ]
 
   group = aws_iam_group.art_devops_white.name
