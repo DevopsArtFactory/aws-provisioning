@@ -36,6 +36,6 @@ s3transfer
 simplejson
 six
 stevedore==1.12.0
-virtualenv==15.0.1
+virtualenv==20.26.6
 virtualenv-clone==0.2.6
 virtualenvwrapper==4.7.1
